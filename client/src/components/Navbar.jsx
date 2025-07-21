@@ -4,7 +4,7 @@ import userIcon from "../assets/user.png";
 
 const Navbar = () => {
     return (
-        <div className="my-3 mx-7 md:my-6 md:mx-12 lg:mx-24 flex justify-between">
+        <div className="my-3 md:my-6  flex justify-between">
             <div className="flex cursor-pointer">
                 <div className="text-2xl font-bold">ReLeaf</div>
                 <img src={logo} alt="ReLeaf logo" className="w-8 h-8" />
