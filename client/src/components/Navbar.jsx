@@ -10,11 +10,6 @@ const Navbar = () => {
                 <img src={logo} alt="ReLeaf logo" className="w-8 h-8" />
             </div>
             <div className="flex gap-5">
-                <input
-                    type="text"
-                    placeholder="Search"
-                    className="w-40 md:w-64 border-gray-500 text-gray-400 border-[0.8px] text-sm rounded-lg px-4 outline-none"
-                />
                 <img
                     src={userIcon}
                     alt="User icon"

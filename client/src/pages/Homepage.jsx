@@ -19,7 +19,7 @@ const Homepage = () => {
         setTimeout(() => {
             setCount((prev) => (prev - 1 + products.length) % products.length);
             setFade(true);
-        }, 300); // This matches the CSS transition duration
+        }, 300);
     };
 
     const handleNext = () => {
