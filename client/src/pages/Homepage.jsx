@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import Benefits from "../components/Benefits";
 import NoProducts from "../components/NoProducts";
+import Categories from "../components/Categories";
+import Footer from "../components/Footer";
 
 const Homepage = ({ products, setProducts }) => {
     const [count, setCount] = useState(2);
@@ -41,7 +43,7 @@ const Homepage = ({ products, setProducts }) => {
 
     return (
         <div className="w-full relative">
-            <div className="flex md:flex-row flex-col gap-5 md:gap-0 cursor-pointer items-center border-1  border-gray-100 rounded-lg lg:p-8">
+            <div className="flex md:flex-row flex-col gap-5 md:gap-0 cursor-pointer items-center  rounded-lg lg:p-8">
                 <div
                     className={`md:w-2/3 overflow-hidden relative h-170 transition-opacity duration-300 ${
                         fade ? "opacity-100" : "opacity-0"
@@ -50,7 +52,7 @@ const Homepage = ({ products, setProducts }) => {
                     <img
                         src={products[count]?.images?.[0]}
                         alt={products[count]?.name || "Product image"}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="w-full h-full object-cover"
                     />
                 </div>
                 <div
@@ -101,7 +103,10 @@ const Homepage = ({ products, setProducts }) => {
                     </button>
                 </div>
             </div>
+            <Categories />
+
             <Benefits />
+            <Footer />
         </div>
     );
 };

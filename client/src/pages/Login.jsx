@@ -14,7 +14,11 @@ const Login = () => {
             </div>
 
             <div className="w-full flex flex-col items-center justify-center">
-                <form className="md:w-96 w-80 flex flex-col items-center justify-center">
+                <form
+                    action="/login"
+                    method="post"
+                    className="md:w-96 w-80 flex flex-col items-center justify-center"
+                >
                     <h2 className="text-4xl text-gray-900 font-medium">
                         Sign in
                     </h2>

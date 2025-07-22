@@ -7,6 +7,7 @@ import { useState } from "react";
 import Product from "./pages/Product";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Category from "./pages/Category";
 
 function App() {
     const [products, setProducts] = useState([]);
@@ -37,6 +38,10 @@ function App() {
                     <Route path="/product/:id" element={<Product />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
+                    <Route
+                        path="category/:category"
+                        element={<Category products={products} />}
+                    />
                 </Routes>
             </div>
         </div>
