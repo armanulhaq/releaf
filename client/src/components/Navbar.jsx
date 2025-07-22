@@ -1,25 +1,25 @@
-import React from "react";
-import logo from "../assets/icon.png";
+import { ShoppingCart } from "lucide-react";
 import userIcon from "../assets/user.png";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const navigate = useNavigate();
     return (
-        <div className=" md:mb-6 border-b-1 border-gray-100 py-5 flex justify-between">
+        <div className="top-0 z-50 py-6 flex justify-between px-7 md:px-12 lg:px-24">
             <div className="flex cursor-pointer">
                 <div
-                    className="text-2xl font-bold text-[#432507]"
+                    className="text-2xl font-bold"
                     onClick={() => navigate("/")}
                 >
                     ReLeaf
                 </div>
-                <img src={logo} alt="ReLeaf logo" className="w-8 h-8" />
             </div>
-            <div className="flex gap-5">
+            <div className="flex gap-10">
+                <ShoppingCart className="w-6 h-6 cursor-pointer text-[#432507]" />
                 <img
                     src={userIcon}
                     alt="User icon"
+                    onClick={() => navigate("/login")}
                     className="w-6 h-6 cursor-pointer"
                 />
             </div>

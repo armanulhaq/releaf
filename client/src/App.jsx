@@ -5,34 +5,40 @@ import Homepage from "./pages/Homepage";
 import AllProducts from "./pages/AllProducts";
 import { useState } from "react";
 import Product from "./pages/Product";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
     const [products, setProducts] = useState([]);
 
     return (
-        <div className="mx-7 md:mx-12 lg:mx-24">
+        <div>
             <Navbar />
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <Homepage
-                            products={products}
-                            setProducts={setProducts}
-                        />
-                    }
-                />
-                <Route
-                    path="/all-products"
-                    element={
-                        <AllProducts
-                            products={products}
-                            setProducts={setProducts}
-                        />
-                    }
-                />
-                <Route path="/product/:id" element={<Product />} />
-            </Routes>
+            <div className="mx-7 md:mx-12 lg:mx-24">
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Homepage
+                                products={products}
+                                setProducts={setProducts}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/all-products"
+                        element={
+                            <AllProducts
+                                products={products}
+                                setProducts={setProducts}
+                            />
+                        }
+                    />
+                    <Route path="/product/:id" element={<Product />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </div>
         </div>
     );
 }

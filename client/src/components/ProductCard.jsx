@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
             <div
                 key={product.id}
                 onClick={() => navigate(`/product/${product._id}`)}
-                className="flex flex-col shadow-sm p-6 rounded-xl gap-1 cursor-pointer hover:scale-105 transition-all duration-300"
+                className="flex flex-col  shadow-sm p-6 rounded-xl gap-1 cursor-pointer hover:scale-105 transition-all duration-300"
             >
                 <img
                     src={product.images[0]}
@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
                 <div className="text-lg font-bold line-clamp-1">
                     {product.name}
                 </div>
-                <div className="text-xs line-height-3 text-gray-400 mb-2 line-clamp-3">
+                <div className="text-xs line-height-3 text-gray-500/90 mb-2 line-clamp-3">
                     {product.shortDescription}
                 </div>
                 <div className="text-lg font-bold mb-2 ">

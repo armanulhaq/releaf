@@ -55,9 +55,9 @@ const Product = () => {
 
     return (
         <div className="px-4 py-8 lg:py-16 max-h-[80vh]">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-16">
                 <div className="space-y-4">
-                    <div className="rounded-3xl overflow-hidden transition-all duration-300">
+                    <div className="rounded-lg lg:rounded-3xl overflow-hidden transition-all duration-300">
                         <img
                             src={currentProduct.images[0]}
                             alt={currentProduct.name}
@@ -66,13 +66,13 @@ const Product = () => {
                     </div>
                 </div>
 
-                <div className="space-y-4 md:px-16">
+                <div className="space-y-4 xl:px-16">
                     <div className="space-y-1">
                         <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold">
                             {currentProduct.name}
                         </h1>
 
-                        <p className="text-md mb-2">
+                        <p className="text-sm md:text-md mb-2">
                             {currentProduct.shortDescription}
                         </p>
                     </div>
@@ -86,7 +86,7 @@ const Product = () => {
                         </span>
                     </div>
 
-                    <div className="my-4 text-gray-600">
+                    <div className="text-sm md:text-md my-4 text-gray-500/90">
                         {currentProduct.longDescription}
                     </div>
 
@@ -94,14 +94,16 @@ const Product = () => {
                         <h3 className="text-lg font-semibold mb-1">
                             Key Features
                         </h3>
-                        <div className="space-y-1">
+                        <div className="space-y-1 ">
                             {currentProduct.features.map((feature, index) => (
                                 <div
                                     key={index}
                                     className="flex items-start gap-3"
                                 >
                                     <Check className="w-5 h-5 text-[#432507] mt-0.5" />
-                                    <span className="text-sm">{feature}</span>
+                                    <span className="text-sm text-gray-500/90">
+                                        {feature}
+                                    </span>
                                 </div>
                             ))}
                         </div>
@@ -116,14 +118,14 @@ const Product = () => {
                         </span>
                     </div>
                     <div className="flex gap-3">
-                        <button className="flex  gap-2 px-2 py-2 cursor-pointer bg-gray-200 w-[40%] justify-between items-center rounded-sm">
-                            <div className="w-8 h-8 flex items-center justify-center">
+                        <button className="flex  gap-2 px-2 py-1 lg:py-2 cursor-pointer bg-gray-200 w-[40%] justify-between items-center rounded-sm">
+                            <div className="md:w-8 md:h-8 w-3 h-3 flex items-center justify-center">
                                 -
                             </div>
-                            <div className="w-8 h-8 flex items-center justify-center">
+                            <div className="md:w-8 md:h-8 w-6 h-6 flex items-center justify-center">
                                 0
                             </div>
-                            <div className="w-8 h-8 flex items-center justify-center">
+                            <div className="md:w-8 md:h-8 w-3 h-3 flex items-center justify-center">
                                 +
                             </div>
                         </button>

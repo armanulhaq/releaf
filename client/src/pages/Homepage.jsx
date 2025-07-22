@@ -41,7 +41,7 @@ const Homepage = ({ products, setProducts }) => {
 
     return (
         <div className="w-full relative">
-            <div className="flex md:flex-row flex-col gap-5 md:gap-0 cursor-pointer my-6 md:my-15 items-center">
+            <div className="flex md:flex-row flex-col gap-5 md:gap-0 cursor-pointer items-center border-1  border-gray-100 rounded-lg lg:p-8">
                 <div
                     className={`md:w-2/3 overflow-hidden relative h-170 transition-opacity duration-300 ${
                         fade ? "opacity-100" : "opacity-0"
@@ -58,7 +58,7 @@ const Homepage = ({ products, setProducts }) => {
                         fade ? "opacity-100" : "opacity-0"
                     }`}
                 >
-                    <div>
+                    <div className="">
                         <div className="text-xl md:text-2xl lg:text-4xl font-extrabold">
                             {products[count]?.name}
                         </div>
@@ -83,9 +83,9 @@ const Homepage = ({ products, setProducts }) => {
                 </div>
             </div>
 
-            <div className="my-15">
-                <div className="text-2xl font-bold my-6">Our Best Sellers</div>
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 lg:gap-15">
+            <div className="my-7">
+                <div className="text-2xl font-bold mb-6">Our Best Sellers</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-10 lg:gap-15">
                     {products.slice(0, 4)?.map((product) => {
                         return (
                             <ProductCard key={product?._id} product={product} />
