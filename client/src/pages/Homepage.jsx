@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "../components/ProductCard";
+import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
+import Benefits from "../components/Benefits";
+import NoProducts from "../components/NoProducts";
 
-const Homepage = () => {
-    const [products, setProducts] = useState([]);
-    const [count, setCount] = useState(0);
+const Homepage = ({ products, setProducts }) => {
+    const [count, setCount] = useState(2);
     const [fade, setFade] = useState(true);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://localhost:3000/products")
@@ -30,6 +35,10 @@ const Homepage = () => {
         }, 300);
     };
 
+    if (!products.length) return <Loader />;
+
+    if (products.length === 0) return <NoProducts />;
+
     return (
         <div className="w-full relative">
             <div className="flex md:flex-row flex-col gap-5 md:gap-0 cursor-pointer my-6 md:my-15 items-center">
@@ -40,7 +49,7 @@ const Homepage = () => {
                 >
                     <img
                         src={products[count]?.images?.[0]}
-                        alt=""
+                        alt={products[count]?.name || "Product image"}
                         className="w-full h-full object-cover rounded-lg"
                     />
                 </div>
@@ -64,11 +73,11 @@ const Homepage = () => {
 
                 <div className="flex">
                     <ChevronLeft
-                        className="w-10 h-10 absolute top-90 left-0 z-10 cursor-pointer opacity-15 hover:opacity-100 transition-all duration-300"
+                        className="w-10 h-10 absolute top-90 left-0 z-10 cursor-pointer opacity-20 hover:opacity-100 transition-all duration-300"
                         onClick={handlePrev}
                     />
                     <ChevronRight
-                        className="w-10 h-10 absolute top-90 right-0 z-10 cursor-pointer opacity-15 hover:opacity-100 transition-all duration-300"
+                        className="w-10 h-10 absolute top-90 right-0 z-10 cursor-pointer opacity-20 hover:opacity-100 transition-all duration-300"
                         onClick={handleNext}
                     />
                 </div>
@@ -77,14 +86,22 @@ const Homepage = () => {
             <div className="my-15">
                 <div className="text-2xl font-bold my-6">Our Best Sellers</div>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 lg:gap-15">
-                    <ProductCard products={products} />
+                    {products.slice(0, 4)?.map((product) => {
+                        return (
+                            <ProductCard key={product?._id} product={product} />
+                        );
+                    })}
                 </div>
                 <div className="my-7 flex justify-center">
-                    <button className="border-1 border-[#432507] text-[#432507] w-fit px-5 py-2 rounded-sm hover:bg-[#432507] hover:text-white transition-all duration-300 cursor-pointer">
+                    <button
+                        onClick={() => navigate("/all-products")}
+                        className="border-1 border-[#432507] text-[#432507] w-fit px-5 py-2 rounded-sm hover:bg-[#432507] hover:text-white transition-all duration-300 cursor-pointer"
+                    >
                         View All
                     </button>
                 </div>
             </div>
+            <Benefits />
         </div>
     );
 };
