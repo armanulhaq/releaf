@@ -17,8 +17,6 @@ const Categories = () => {
     if (!allProducts.length) return <Loader />;
     const categories = new Set();
     allProducts.forEach((product) => categories.add(product?.category));
-    console.log(categories);
-
     return (
         <>
             <div className="text-2xl font-bold mb-6">Shop By Category</div>

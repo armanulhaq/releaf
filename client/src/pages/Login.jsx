@@ -6,22 +6,39 @@ const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setErrorMsg("");
         try {
-            await fetch("http://localhost:3000/auth/login", {
+            const res = await fetch("http://localhost:3000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email, password }),
-                credentials: "include", //REQUIRED to receive cookies from server
+                credentials: "include", // to receive cookies
             });
-        } catch {
-            console.log("Error fetchign");
+
+            if (res.status === 200) {
+                navigate("/");
+            } else if (res.status === 400) {
+                setErrorMsg("Invalid email or password");
+            } else if (res.status === 401) {
+                setErrorMsg("Unauthorized. Please login again.");
+            } else {
+                const { message } = await res
+                    .json()
+                    .catch(() => ({ message: "Server error" }));
+                setErrorMsg(
+                    message || "Something went wrong. Please try again."
+                );
+            }
+        } catch (error) {
+            setErrorMsg("Network error. Please try again later.");
+            console.error("Login error", error);
         }
-        navigate("/");
     };
     return (
         <div className="flex w-[70%] h-full mx-auto my-16">
@@ -55,6 +72,13 @@ const Login = () => {
                             className=" text-gray-500/80 bg-white placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
                             required
                         />
+                    </div>
+                    <div className="">
+                        {errorMsg && (
+                            <div className="text-xs text-red-500">
+                                {errorMsg}
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex items-center mt-6 w-full border border-gray-300/60 h-12 rounded-2xl pl-3 gap-2">

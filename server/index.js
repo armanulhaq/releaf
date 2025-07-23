@@ -19,8 +19,7 @@ app.use(
 );
 
 app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); //it is a middleware that takes up the json coming in from Frontend in the form of credentials and attaches it to req.body before authRoutes read it
 
 app.get("/", (req, res) => {
     res.send("Hello World");

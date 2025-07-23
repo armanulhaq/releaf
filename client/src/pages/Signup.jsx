@@ -8,25 +8,35 @@ const Signup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    console.log(JSON.stringify({ name, email, password }));
-    const handleSignup = (e) => {
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const handleSignup = async (e) => {
         e.preventDefault();
+        setErrorMsg("");
         try {
-            async function register() {
-                const res = await fetch("http://localhost:3000/auth/register", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ name, email, password }),
-                });
-                const data = await res.json();
-                console.log(data);
+            const res = await fetch("http://localhost:3000/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, email, password }),
+            });
+
+            if (res.status === 200 || res.status === 201) {
                 navigate("/login");
+            } else if (res.status === 409) {
+                setErrorMsg("User already exists. Please login instead.");
+            } else {
+                const { message } = await res
+                    .json()
+                    .catch(() => ({ message: "Server error" }));
+                setErrorMsg(
+                    message || "Something went wrong. Please try again."
+                );
             }
-            register();
         } catch (error) {
-            console.error("Failed to register:", error);
+            setErrorMsg("Network error. Please try again later.");
+            console.error("Signup error", error);
         }
     };
     return (
@@ -70,6 +80,13 @@ const Signup = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
+                    <div className="">
+                        {errorMsg && (
+                            <div className="text-xs text-red-500">
+                                {errorMsg}
+                            </div>
+                        )}
+                    </div>
 
                     <div className="flex items-center mt-6 w-full border border-gray-300/60 h-12 rounded-2xl pl-3 gap-2">
                         <Lock className="w-6 h-6" />
@@ -84,7 +101,7 @@ const Signup = () => {
 
                     <button
                         type="submit"
-                        className="mt-8 w-full h-11 rounded-md text-white bg-[#432507] hover:opacity-90 transition-opacity"
+                        className="mt-8 w-full h-11 rounded-md text-white bg-[#432507] hover:opacity-90 transition-opacity cursor-pointer"
                     >
                         Sign up
                     </button>
@@ -92,7 +109,7 @@ const Signup = () => {
                         Already have an account?{" "}
                         <span
                             onClick={() => navigate("/login")}
-                            className="text-[#432507] hover:underline"
+                            className="text-[#432507] hover:underline cursor-pointer"
                         >
                             Sign in
                         </span>

@@ -10,15 +10,8 @@ const fetchProducts = async (req, res) => {
     }
 };
 
-import mongoose from "mongoose";
-
 const fetchProduct = async (req, res) => {
     const { id } = req.params;
-
-    // Validate ObjectId to avoid CastError
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: "Invalid product id" });
-    }
 
     try {
         const product = await Product.findById(id);
