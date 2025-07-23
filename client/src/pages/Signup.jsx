@@ -1,8 +1,34 @@
 import { User, Mail, Lock } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const navigate = useNavigate();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    console.log(JSON.stringify({ name, email, password }));
+    const handleSignup = (e) => {
+        e.preventDefault();
+        try {
+            async function register() {
+                const res = await fetch("http://localhost:3000/auth/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name, email, password }),
+                });
+                const data = await res.json();
+                console.log(data);
+                navigate("/login");
+            }
+            register();
+        } catch (error) {
+            console.error("Failed to register:", error);
+        }
+    };
     return (
         <div className="flex w-[70%] h-full mx-auto my-16">
             <div className="w-full hidden xl:flex md:items-center md:justify-center">
@@ -14,7 +40,10 @@ const Signup = () => {
             </div>
 
             <div className="w-full flex flex-col items-center justify-center">
-                <form className="md:w-96 w-80 flex flex-col items-center justify-center">
+                <form
+                    onSubmit={handleSignup}
+                    className="md:w-96 w-80 flex flex-col items-center justify-center"
+                >
                     <h2 className="text-4xl text-gray-900 font-medium">
                         Sign up
                     </h2>
@@ -28,6 +57,7 @@ const Signup = () => {
                             placeholder="Name"
                             className=" placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
                             required
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                     <div className="flex items-center mt-6 w-full border border-gray-300/60 h-12 rounded-2xl pl-3 gap-2">
@@ -37,6 +67,7 @@ const Signup = () => {
                             placeholder="Email ID"
                             className=" text-gray-500/80 bg-white placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
                             required
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
@@ -47,6 +78,7 @@ const Signup = () => {
                             placeholder="Password"
                             className=" text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
                             required
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
 

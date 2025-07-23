@@ -3,18 +3,29 @@ import { useParams } from "react-router-dom";
 import { Star, Check, ShoppingCart } from "lucide-react";
 import Loader from "../components/Loader";
 import NoProducts from "../components/NoProducts";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
     const [currentProduct, setCurrentProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 setIsLoading(true);
-                const res = await fetch(`http://localhost:3000/products/${id}`);
+                const res = await fetch(
+                    `http://localhost:3000/products/${id}`,
+                    {
+                        method: "GET",
+                        credentials: "include", //allows cookie to be sent to server
+                    }
+                );
+                if (res.status === 401) {
+                    navigate("/login"); // ✅ useNavigate from React Router
+                }
                 if (!res.ok) {
                     throw new Error(`Request failed with status ${res.status}`);
                 }

@@ -106,7 +106,7 @@ const Homepage = ({ products, setProducts }) => {
             <Categories />
 
             <Benefits />
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };
