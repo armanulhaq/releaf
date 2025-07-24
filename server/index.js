@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./configs/db.js";
 import productRoutes from "./routes/products.route.js";
 import authRoutes from "./routes/auth.route.js";
+import cartRoutes from "./routes/cart.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 
 app.use("/products", productRoutes);
 app.use("/auth", authRoutes);
+app.use("/cart", cartRoutes);
 
 app.listen(3000, () => {
     console.log("Server running on 3000");
