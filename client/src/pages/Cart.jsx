@@ -29,6 +29,7 @@ const Cart = () => {
         };
         fetchCart();
     }, []);
+    console.log(cart);
 
     const calculateSubtotal = () => {
         return cart.reduce(
@@ -102,7 +103,7 @@ const Cart = () => {
 
                                         <div className="flex-1 space-y-3">
                                             <div>
-                                                <h3 className="text-xl font-semibold line-clamp-1">
+                                                <h3 className="text-xl font-semibold line-clamp-1 flex justify-between">
                                                     {item.product.name}
                                                 </h3>
                                                 <p className="text-gray-500/80 text-sm line-clamp-2">
@@ -143,6 +144,9 @@ const Cart = () => {
                                                                 item.product
                                                                     .originalPrice
                                                             }
+                                                        </span>
+                                                        <span className="text-sm bg-white px-2 py-1 rounded-full border border-gray-200">
+                                                            x{item.quantity}
                                                         </span>
                                                     </div>
                                                     <div className="text-xs text-[#432507]">
