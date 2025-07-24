@@ -36,24 +36,24 @@ const Navbar = () => {
             <div className="flex cursor-pointer">
                 <div className="text-2xl font-bold">ReLeaf</div>
             </div>
-            <div className="flex gap-10">
+            <div className="flex justify-center items-center gap-10">
                 {user && (
                     <ShoppingCart className="w-6 h-6 cursor-pointer text-[#432507]" />
                 )}
                 {user ? (
                     <div
-                        className="flex gap-2 items-center cursor-pointer"
+                        className="flex gap-2 border-1 border-[#432507] text-[#432507] px-3 py-2 rounded-md items-center cursor-pointer hover:bg-[#432507] hover:text-white transition-all duration-300"
                         onClick={handleLogout}
                     >
-                        <LogOut className="w-6 h-6 text-[#432507]" />
+                        <LogOut className="w-6 h-6 text-[#432507] hover:text-white" />
                         <div className="text-sm">Logout</div>
                     </div>
                 ) : (
                     <div
-                        className="flex gap-2 items-center cursor-pointer"
+                        className="flex gap-2 bg-[#432507] text-white px-5 py-2 rounded-md items-center cursor-pointer"
                         onClick={() => navigate("/login")}
                     >
-                        <LogIn className="w-6 h-6 text-[#432507]" />
+                        <LogIn className="w-6 h-6" />
                         <div className="text-sm">Login</div>
                     </div>
                 )}
