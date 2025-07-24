@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
                 <div className="flex items-center gap-2">
                     <div className="text-lg flex items-center gap-2 font-bold">
                         ₹ {product.discountPrice}
-                        <span className="text-sm line-clamp-1 text-gray-500 line-through">
+                        <span className="text-sm line-clamp-1 text-gray-500/90 line-through">
                             ₹ {product.originalPrice}
                         </span>
                     </div>

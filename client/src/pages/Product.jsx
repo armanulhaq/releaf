@@ -7,10 +7,17 @@ import { useNavigate } from "react-router-dom";
 
 const Product = () => {
     const [currentProduct, setCurrentProduct] = useState(null);
+
     const [isLoading, setIsLoading] = useState(true);
 
     const { id } = useParams();
     const navigate = useNavigate();
+
+    const discountCalculator = (originalPrice, discountPrice) => {
+        const discount = originalPrice - discountPrice;
+        const discountPercentage = (discount / originalPrice) * 100;
+        return discountPercentage.toFixed(0);
+    };
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -42,6 +49,11 @@ const Product = () => {
             fetchProduct();
         }
     }, [id]);
+
+    const [productToCart, setProductToCart] = useState({
+        id: currentProduct?._id,
+        quantity: 0,
+    });
 
     const renderStars = (rating) => {
         return Array.from({ length: 5 }, (_, i) => (
@@ -77,7 +89,7 @@ const Product = () => {
                     </div>
                 </div>
 
-                <div className="space-y-4 xl:px-16">
+                <div className="flex flex-col justify-center space-y-4 xl:px-16">
                     <div className="space-y-1">
                         <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold">
                             {currentProduct.name}
@@ -119,33 +131,57 @@ const Product = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="flex gap-3 ">
+                    <div className="flex gap-3 items-center">
                         <span className="text-4xl font-bold">
                             ₹ {currentProduct.discountPrice}
                         </span>
 
-                        <span className="text-xl line-through">
+                        <span className="text-xl text-gray-500/90 line-through">
                             ₹ {currentProduct.originalPrice}
                         </span>
+                        <span className="text-sm flex items-center gap-2 line-clamp-1 text-[#432507]">
+                            {discountCalculator(
+                                currentProduct.originalPrice,
+                                currentProduct.discountPrice
+                            )}
+                            % off
+                        </span>
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 items-center lg:w-[70%]">
                         <button className="flex  gap-2 px-2 py-1 lg:py-2 cursor-pointer bg-gray-200 w-[40%] justify-between items-center rounded-sm">
-                            <div className="md:w-8 md:h-8 w-3 h-3 flex items-center justify-center">
+                            <div
+                                onClick={() =>
+                                    setProductToCart({
+                                        ...productToCart,
+                                        quantity: productToCart.quantity - 1,
+                                    })
+                                }
+                                className="w-10 h-10 flex items-center justify-center"
+                            >
                                 -
                             </div>
-                            <div className="md:w-8 md:h-8 w-6 h-6 flex items-center justify-center">
-                                0
+                            <div className="w-10 h-10  flex items-center justify-center">
+                                {productToCart.quantity}
                             </div>
-                            <div className="md:w-8 md:h-8 w-3 h-3 flex items-center justify-center">
+                            <div
+                                onClick={() =>
+                                    setProductToCart({
+                                        ...productToCart,
+                                        quantity: productToCart.quantity + 1,
+                                    })
+                                }
+                                className="w-10 h-10 flex items-center justify-center"
+                            >
                                 +
                             </div>
                         </button>
                         <button
                             disabled={!currentProduct.inStock}
-                            className="flex items-center gap-2 px-5 py-3 cursor-pointer bg-[#432507] text-white w-[60%] justify-center rounded-sm"
+                            className="flex items-center gap-2 px-5 py-4 cursor-pointer bg-[#432507] text-white w-[60%] justify-center rounded-sm"
+                            onClick={() => navigate("/cart")}
                         >
                             <ShoppingCart className="w-5 h-5 mr-2" />
-                            Add to Cart
+                            Go to Cart
                         </button>
                     </div>
 
