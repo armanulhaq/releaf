@@ -21,7 +21,7 @@ const Category = () => {
     return (
         <>
             <div className="text-2xl font-bold my-6">{category}</div>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-10 lg:gap-15">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-10 lg:gap-15 mb-10">
                 {filteredProducts.map((product) => (
                     <ProductCard key={product._id} product={product} />
                 ))}

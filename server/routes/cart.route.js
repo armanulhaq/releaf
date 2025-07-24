@@ -1,9 +1,14 @@
 import express from "express";
-import { updateCart, getCart } from "../controllers/cart.controller.js";
+import {
+    updateCart,
+    getCart,
+    getCartById,
+} from "../controllers/cart.controller.js";
 
 const router = express.Router();
 
-router.post("/update", updateCart);
-router.get("/:id", getCart);
+router.get("/", getCart); // GET entire cart (populated)
+router.post("/update", updateCart); // POST to add/update cart
+router.get("/:id", getCartById); // GET quantity of specific product in user's cart
 
 export default router;

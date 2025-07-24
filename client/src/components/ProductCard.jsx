@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
             <div
                 key={product.id}
                 onClick={() => navigate(`/product/${product._id}`)}
-                className="flex flex-col justify-between shadow-sm p-6 rounded-xl gap-1 cursor-pointer transition-all duration-300"
+                className="flex flex-col justify-between shadow-sm p-6 rounded-xl gap-1 cursor-pointer"
             >
                 <img
                     src={product.images[0]}

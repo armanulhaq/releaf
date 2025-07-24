@@ -97,7 +97,7 @@ const Product = () => {
     if (!productDetails) return <NoProducts />;
 
     return (
-        <div className="px-4 py-8 lg:py-16 max-h-[80vh]">
+        <div className="px-4 py-8 lg:py-16 ">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-16">
                 {/* Image Section */}
                 <div className="space-y-4">
@@ -202,7 +202,7 @@ const Product = () => {
                         <button
                             disabled={!productDetails.inStock}
                             onClick={() => navigate("/cart")}
-                            className="flex items-center gap-2 px-5 py-4 bg-[#432507] text-white w-[60%] justify-center rounded-sm"
+                            className="flex items-center gap-2 px-5 py-4 bg-[#432507] text-white w-[60%] justify-center rounded-sm cursor-pointer"
                         >
                             <ShoppingCart className="w-5 h-5 mr-2" />
                             Go to Cart

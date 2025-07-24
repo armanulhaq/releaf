@@ -32,20 +32,28 @@ const Navbar = () => {
         }
     };
     return (
-        <div className="top-0 z-50 py-6 flex justify-between px-7 md:px-12 lg:px-24">
+        <div className="lg:py-6 py-4 flex justify-between px-7 md:px-12 lg:px-24">
             <div className="flex cursor-pointer">
-                <div className="text-2xl font-bold">ReLeaf</div>
+                <div
+                    className="text-2xl font-bold cursor-pointer flex items-center gap-2"
+                    onClick={() => navigate("/")}
+                >
+                    ReLeaf
+                </div>
             </div>
-            <div className="flex justify-center items-center gap-10">
+            <div className="flex justify-center items-center lg:gap-10 gap-5">
                 {user && (
-                    <ShoppingCart className="w-6 h-6 cursor-pointer text-[#432507]" />
+                    <ShoppingCart
+                        onClick={() => navigate("/cart")}
+                        className="lg:w-6 lg:h-6 w-5 h-5 cursor-pointer text-[#432507]"
+                    />
                 )}
                 {user ? (
                     <div
-                        className="flex gap-2 border-1 border-[#432507] text-[#432507] px-3 py-2 rounded-md items-center cursor-pointer hover:bg-[#432507] hover:text-white transition-all duration-300"
+                        className="flex lg:gap-2 gap-1 border-1 border-[#432507] text-[#432507] px-3 py-2 rounded-md items-center cursor-pointer hover:bg-[#432507] hover:text-white transition-all duration-300"
                         onClick={handleLogout}
                     >
-                        <LogOut className="w-6 h-6 text-[#432507] hover:text-white" />
+                        <LogOut className="lg:w-6 lg:h-6 w-5 h-5 text-[#432507] hover:text-white" />
                         <div className="text-sm">Logout</div>
                     </div>
                 ) : (
@@ -53,7 +61,7 @@ const Navbar = () => {
                         className="flex gap-2 bg-[#432507] text-white px-5 py-2 rounded-md items-center cursor-pointer"
                         onClick={() => navigate("/login")}
                     >
-                        <LogIn className="w-6 h-6" />
+                        <LogIn className="lg:w-6 lg:h-6 w-5 h-5" />
                         <div className="text-sm">Login</div>
                     </div>
                 )}
