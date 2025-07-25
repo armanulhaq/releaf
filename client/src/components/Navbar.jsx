@@ -45,10 +45,18 @@ const Navbar = () => {
             </div>
             <div className="flex justify-center items-center lg:gap-10 gap-5">
                 {user && (
-                    <ShoppingCart
-                        onClick={() => navigate("/cart")}
-                        className="lg:w-6 lg:h-6 w-5 h-5 cursor-pointer text-[#432507]"
-                    />
+                    <div className="flex items-center gap-8">
+                        <div
+                            className="cursor-pointer text-[#432507]"
+                            onClick={() => navigate("/my-orders")}
+                        >
+                            My Orders
+                        </div>
+                        <ShoppingCart
+                            onClick={() => navigate("/cart")}
+                            className="lg:w-6 lg:h-6 w-5 h-5 cursor-pointer text-[#432507]"
+                        />
+                    </div>
                 )}
                 {user ? (
                     <div

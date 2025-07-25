@@ -25,11 +25,11 @@ const Success = () => {
                     </p>
                     <div className="py-10 text-center">
                         <a
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/my-orders")}
                             href="#"
                             className="px-12 bg-[#432507] hover:bg-[#432507]/90 text-white font-semibold py-3 rounded-sm"
                         >
-                            Return to Home
+                            Go to my orders
                         </a>
                     </div>
                 </div>

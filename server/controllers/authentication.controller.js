@@ -44,13 +44,17 @@ const login = async (req, res) => {
     return res.status(200).json({ message: "Successfully logged you in" });
 };
 
-const authMe = (req, res) => {
+const authMe = async (req, res) => {
     const token = req.cookies.token;
     if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
     }
     try {
-        const user = getUser(token);
+        const decoded = getUser(token);
+        const user = await User.findById(decoded._id)
+            .select("email orders name") // include only email, name and orders
+            .populate("orders.products.product", "name images discountPrice");
+
         return res.status(200).json({ user });
     } catch (error) {
         return res.status(401).json({ message: "Unauthorized" });

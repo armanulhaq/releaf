@@ -11,6 +11,7 @@ import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
+import MyOrders from "./pages/MyOrders";
 
 function App() {
     const [products, setProducts] = useState([]);
@@ -48,6 +49,7 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/success" element={<Success />} />
                     <Route path="/cancel" element={<Cancel />} />
+                    <Route path="/my-orders" element={<MyOrders />} />
                 </Routes>
             </div>
         </div>

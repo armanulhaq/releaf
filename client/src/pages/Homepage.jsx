@@ -42,7 +42,7 @@ const Homepage = ({ products, setProducts }) => {
 
     return (
         <div className="w-full relative">
-            <div className="flex md:flex-row flex-col gap-5 md:gap-0 cursor-pointer items-center  rounded-lg lg:p-8">
+            <div className="flex md:flex-row flex-col gap-5 md:gap-0 items-center  rounded-lg lg:p-8">
                 <div
                     className={`md:w-2/3 overflow-hidden relative h-170 transition-opacity duration-300 ${
                         fade ? "opacity-100" : "opacity-0"
@@ -66,9 +66,6 @@ const Homepage = ({ products, setProducts }) => {
                         <div className="text-sm md:text-md lg:text-lg mt-2">
                             {products[count]?.shortDescription}
                         </div>
-                        <button className="bg-[#432507] mt-4 text-white w-fit px-5 py-2 rounded-sm cursor-pointer">
-                            Buy Now
-                        </button>
                     </div>
                 </div>
 
