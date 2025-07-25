@@ -99,7 +99,6 @@ const Product = () => {
     return (
         <div className="px-4 py-8 lg:py-16 ">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-16">
-                {/* Image Section */}
                 <div className="space-y-4">
                     <div className="rounded-lg lg:rounded-3xl overflow-hidden">
                         <img

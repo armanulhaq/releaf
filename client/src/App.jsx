@@ -9,6 +9,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Category from "./pages/Category";
 import Cart from "./pages/Cart";
+import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
 
 function App() {
     const [products, setProducts] = useState([]);
@@ -44,6 +46,8 @@ function App() {
                         element={<Category products={products} />}
                     />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/success" element={<Success />} />
+                    <Route path="/cancel" element={<Cancel />} />
                 </Routes>
             </div>
         </div>

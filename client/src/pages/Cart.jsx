@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { ShoppingBag, Star } from "lucide-react";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const Cart = () => {
     const [cart, setCart] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [stripeLoading, setStripeLoading] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,6 +52,44 @@ const Cart = () => {
 
     const calculateSavings = () => {
         return calculateOriginalTotal() - calculateSubtotal();
+    };
+
+    const handlePayment = async () => {
+        setStripeLoading(true);
+        try {
+            const res = await fetch(
+                "http://localhost:3000/payment/create-checkout-session",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        product: cart,
+
+                        currency: "INR",
+                        success_url: "http://localhost:5173/success",
+                        cancel_url: "http://localhost:5173/cancel",
+
+                        quantity: cart.quantity,
+                    }),
+                }
+            );
+            const data = await res.json();
+            if (data.session && data.session.url) {
+                const stripe = await stripePromise;
+
+                await stripe.redirectToCheckout({
+                    sessionId: data.session.id,
+                });
+            } else {
+                console.log("Failed to create checkout session");
+            }
+        } catch (error) {
+            console.log(error, "Error creating checkout session", error);
+        } finally {
+            setStripeLoading(false);
+        }
     };
 
     if (isLoading) return <Loader />;
@@ -202,8 +245,15 @@ const Cart = () => {
                                 </div>
 
                                 <div className="space-y-3">
-                                    <button className="w-full bg-[#432507] text-white py-3 cursor-pointer">
-                                        Proceed to Checkout
+                                    <button
+                                        onClick={handlePayment}
+                                        className="w-full bg-[#432507] text-white py-3 cursor-pointer flex justify-center items-center"
+                                    >
+                                        {stripeLoading ? (
+                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                        ) : (
+                                            "Proceed to Checkout"
+                                        )}
                                     </button>
                                     <button
                                         onClick={() => navigate("/")}

@@ -6,11 +6,14 @@ import authRoutes from "./routes/auth.route.js";
 import cartRoutes from "./routes/cart.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import Stripe from "stripe";
+import paymentRoutes from "./routes/payment.route.js";
 
 dotenv.config();
 connectDB();
 
 const app = express();
+const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 
 app.use(
     cors({
@@ -29,6 +32,7 @@ app.get("/", (req, res) => {
 app.use("/products", productRoutes);
 app.use("/auth", authRoutes);
 app.use("/cart", cartRoutes);
+app.use("/payment", paymentRoutes);
 
 app.listen(3000, () => {
     console.log("Server running on 3000");
