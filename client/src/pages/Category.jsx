@@ -14,7 +14,9 @@ const Category = () => {
             fetchAllProducts();
         }
     }, []);
+
     const { category } = useParams();
+
     const filteredProducts = allProducts.filter(
         (product) => product.category.toLowerCase() === category.toLowerCase()
     );

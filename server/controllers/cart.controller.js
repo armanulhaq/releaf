@@ -1,6 +1,19 @@
 import { getUser } from "../middleware/auth.js";
 import User from "../models/user.model.js";
 
+// Get entire populated cart
+async function getCart(req, res) {
+    const user = getUser(req.cookies.token);
+
+    try {
+        const myUser = await User.findById(user._id).populate("cart.product"); //we have product id inside user.cart mongoose uses that to populate all the product data
+        res.status(200).json(myUser.cart);
+    } catch (error) {
+        console.error("Error fetching cart:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
 // Add or update cart item
 async function updateCart(req, res) {
     const { product, quantity } = req.body;
@@ -9,7 +22,7 @@ async function updateCart(req, res) {
     try {
         const myUser = await User.findById(user._id);
         const existingItem = myUser.cart.find(
-            (item) => item.product.toString() === product
+            (item) => item.product.toString() === product //matching with the id sent by user
         );
 
         if (existingItem) {
@@ -26,18 +39,6 @@ async function updateCart(req, res) {
     }
 }
 
-// Get entire populated cart
-async function getCart(req, res) {
-    const user = getUser(req.cookies.token);
-
-    try {
-        const myUser = await User.findById(user._id).populate("cart.product");
-        res.status(200).json(myUser.cart);
-    } catch (error) {
-        console.error("Error fetching cart:", error);
-        res.status(500).json({ message: "Server error" });
-    }
-}
 // Get quantity of specific product in user's cart
 async function getCartById(req, res) {
     const user = getUser(req.cookies.token);

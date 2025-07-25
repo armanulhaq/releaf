@@ -4,9 +4,6 @@ import User from "../models/user.model.js";
 const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-        console.log(name);
-        console.log(email);
-        console.log(password);
 
         const doesExist = await User.findOne({ email });
         if (doesExist) {
@@ -17,12 +14,12 @@ const register = async (req, res) => {
             email: email,
             password: password,
             cart: [],
+            orders: [],
         });
         return res
             .status(200)
             .json({ message: "User successfully registered" });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({ message: "Failed to register" });
     }
 };
@@ -56,13 +53,17 @@ const authMe = (req, res) => {
         const user = getUser(token);
         return res.status(200).json({ user });
     } catch (error) {
-        console.error("authMe error", error);
         return res.status(401).json({ message: "Unauthorized" });
     }
 };
 
 const logout = (req, res) => {
-    res.cookie("token", "", { maxAge: 0, httpOnly: true, sameSite: "None", secure: true });
+    res.cookie("token", "", {
+        maxAge: 0,
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+    });
     return res.status(200).json({ message: "Logged out" });
 };
 

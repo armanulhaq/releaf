@@ -20,7 +20,8 @@ const Navbar = () => {
             }
         };
         fetchUser();
-    }, [location]);
+    }, [location]); // fetch user info when URL changes
+
     const handleLogout = async () => {
         const res = await fetch("http://localhost:3000/auth/logout", {
             method: "POST",
@@ -28,9 +29,10 @@ const Navbar = () => {
         });
         if (res.ok) {
             setUser(null);
-            navigate(0); //full page reload
+            navigate(0);
         }
     };
+
     return (
         <div className="lg:py-6 py-4 flex justify-between px-7 md:px-12 lg:px-24">
             <div className="flex cursor-pointer">

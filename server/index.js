@@ -6,14 +6,12 @@ import authRoutes from "./routes/auth.route.js";
 import cartRoutes from "./routes/cart.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import Stripe from "stripe";
 import paymentRoutes from "./routes/payment.route.js";
 
 dotenv.config();
 connectDB();
 
 const app = express();
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 
 app.use(
     cors({
@@ -23,6 +21,7 @@ app.use(
 );
 
 app.use(cookieParser());
+app.use("/payment", paymentRoutes); //handling this before using express.json() middleware because stripe requires rawBody
 app.use(express.json()); //it is a middleware that takes up the json coming in from Frontend in the form of credentials and attaches it to req.body before authRoutes read it
 
 app.get("/", (req, res) => {
@@ -32,7 +31,6 @@ app.get("/", (req, res) => {
 app.use("/products", productRoutes);
 app.use("/auth", authRoutes);
 app.use("/cart", cartRoutes);
-app.use("/payment", paymentRoutes);
 
 app.listen(3000, () => {
     console.log("Server running on 3000");

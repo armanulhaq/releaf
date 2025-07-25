@@ -6,10 +6,9 @@ import Loader from "../components/Loader";
 import Benefits from "../components/Benefits";
 import NoProducts from "../components/NoProducts";
 import Categories from "../components/Categories";
-import Footer from "../components/Footer";
 
 const Homepage = ({ products, setProducts }) => {
-    const [count, setCount] = useState(2);
+    const [count, setCount] = useState(2); //i wanted the third product to be displayed first
     const [fade, setFade] = useState(true);
 
     const navigate = useNavigate();
@@ -26,7 +25,7 @@ const Homepage = ({ products, setProducts }) => {
         setTimeout(() => {
             setCount((prev) => (prev - 1 + products.length) % products.length);
             setFade(true);
-        }, 300);
+        }, 200);
     };
 
     const handleNext = () => {
@@ -34,7 +33,7 @@ const Homepage = ({ products, setProducts }) => {
         setTimeout(() => {
             setCount((prev) => (prev + 1) % products.length);
             setFade(true);
-        }, 300);
+        }, 200);
     };
 
     if (!products.length) return <Loader />;
@@ -106,7 +105,6 @@ const Homepage = ({ products, setProducts }) => {
             <Categories />
 
             <Benefits />
-            {/* <Footer /> */}
         </div>
     );
 };

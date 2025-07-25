@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
+
     const discountCalculator = (originalPrice, discountPrice) => {
         const discount = originalPrice - discountPrice;
         const discountPercentage = (discount / originalPrice) * 100;
@@ -17,7 +18,7 @@ const ProductCard = ({ product }) => {
             >
                 <img
                     src={product.images[0]}
-                    alt=""
+                    alt="product image"
                     className="rounded-md w-full mb-1 aspect-square"
                 />
 

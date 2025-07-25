@@ -18,7 +18,7 @@ const Login = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email, password }),
-                credentials: "include", // to receive cookies
+                credentials: "include", // to send cookies
             });
 
             if (res.status === 200) {
@@ -27,13 +27,6 @@ const Login = () => {
                 setErrorMsg("Invalid email or password");
             } else if (res.status === 401) {
                 setErrorMsg("Unauthorized. Please login again.");
-            } else {
-                const { message } = await res
-                    .json()
-                    .catch(() => ({ message: "Server error" }));
-                setErrorMsg(
-                    message || "Something went wrong. Please try again."
-                );
             }
         } catch (error) {
             setErrorMsg("Network error. Please try again later.");

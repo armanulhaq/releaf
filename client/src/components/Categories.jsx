@@ -10,7 +10,7 @@ const Categories = () => {
         "https://images.unsplash.com/photo-1509201433847-56a1ced3a91f?q=80&w=1830&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.pexels.com/photos/6634646/pexels-photo-6634646.jpeg",
         "https://images.pexels.com/photos/3119215/pexels-photo-3119215.jpeg",
-        "https://images.pexels.com/photos/9157169/pexels-photo-9157169.jpeg", // Add more if needed
+        "https://images.pexels.com/photos/9157169/pexels-photo-9157169.jpeg",
     ];
 
     useEffect(() => {
@@ -47,12 +47,12 @@ const Categories = () => {
                         >
                             <div className="absolute inset-0 bg-black/50 bg-opacity-60 group-hover:bg-[#432507]/80 transition-all duration-300"></div>
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-white font-extrabold text-2xl">
-                                    {category} Care
+                                <span className="text-white font-extrabold lg:text-2xl text-xl">
+                                    {category}
                                 </span>
                             </div>
                         </div>
-                        <p className="text-center mt-2 text-lg font-medium">
+                        <p className="text-center mt-2 lg:text-lg text-md font-medium">
                             {category}
                         </p>
                     </div>

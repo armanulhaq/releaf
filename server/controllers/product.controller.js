@@ -11,7 +11,7 @@ const fetchProducts = async (req, res) => {
 };
 
 const fetchProduct = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params; //id comes from the URL from where the request is made
 
     try {
         const product = await Product.findById(id);
