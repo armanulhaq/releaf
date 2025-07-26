@@ -15,23 +15,29 @@ const app = express();
 
 app.use(
     cors({
-        origin: "http://localhost:5173", // my frontend origin
-        credentials: true, // allows cookies to be sent
+        origin: ["http://localhost:5173", "https://*.vercel.app"],
+        credentials: true,
     })
 );
 
 app.use(cookieParser());
-app.use("/payment", paymentRoutes); //handling this before using express.json() middleware because stripe requires rawBody
-app.use(express.json()); //it is a middleware that takes up the json coming in from Frontend in the form of credentials and attaches it to req.body before authRoutes read it
+app.use("/api/payment", paymentRoutes);
+app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send("Hello World - ReLeaf API is running!");
 });
 
-app.use("/products", productRoutes);
-app.use("/auth", authRoutes);
-app.use("/cart", cartRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/cart", cartRoutes);
 
-app.listen(3000, () => {
-    console.log("Server running on 3000");
-});
+// Export for Vercel
+export default app;
+
+// Only listen in development
+if (process.env.NODE_ENV !== "production") {
+    app.listen(3000, () => {
+        console.log("Server running on 3000");
+    });
+}
