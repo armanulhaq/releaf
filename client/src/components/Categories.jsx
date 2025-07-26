@@ -15,7 +15,9 @@ const Categories = () => {
 
     useEffect(() => {
         async function fetchAllProducts() {
-            const res = await fetch("http://localhost:3000/products");
+            const res = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/products`
+            );
             const data = await res.json();
             setAllProducts(data);
         }

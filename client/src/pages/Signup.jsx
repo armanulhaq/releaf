@@ -14,13 +14,16 @@ const Signup = () => {
         e.preventDefault();
         setErrorMsg("");
         try {
-            const res = await fetch("http://localhost:3000/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ name, email, password }),
-            });
+            const res = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/register`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name, email, password }),
+                }
+            );
 
             if (res.status === 200 || res.status === 201) {
                 navigate("/login");

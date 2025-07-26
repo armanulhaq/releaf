@@ -12,14 +12,17 @@ const Login = () => {
         e.preventDefault();
         setErrorMsg("");
         try {
-            const res = await fetch("http://localhost:3000/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-                credentials: "include", // to send cookies
-            });
+            const res = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: "include", // to send cookies
+                }
+            );
 
             if (res.status === 200) {
                 navigate("/");

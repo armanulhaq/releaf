@@ -20,10 +20,13 @@ const MyOrders = () => {
             try {
                 setIsLoading(true);
 
-                const res = await fetch("http://localhost:3000/auth/me", {
-                    method: "GET",
-                    credentials: "include",
-                });
+                const res = await fetch(
+                    `${import.meta.env.VITE_BACKEND_URL}/api/auth/me`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
 
                 const data = await res.json();
 

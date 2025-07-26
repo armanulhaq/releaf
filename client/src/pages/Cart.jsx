@@ -21,10 +21,13 @@ const Cart = () => {
             try {
                 setUserLoading(true);
 
-                const res = await fetch("http://localhost:3000/auth/me", {
-                    method: "GET",
-                    credentials: "include",
-                });
+                const res = await fetch(
+                    `${import.meta.env.VITE_BACKEND_URL}/api/auth/me`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
 
                 const data = await res.json();
 
@@ -47,10 +50,13 @@ const Cart = () => {
         const fetchCart = async () => {
             try {
                 setIsLoading(true);
-                const res = await fetch("http://localhost:3000/cart/", {
-                    method: "GET",
-                    credentials: "include",
-                });
+                const res = await fetch(
+                    `${import.meta.env.VITE_BACKEND_URL}/api/cart/`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
                 if (!res.ok) {
                     throw new Error("Failed to fetch cart");
                 }
@@ -90,8 +96,8 @@ const Cart = () => {
             const payload = {
                 product: cart,
                 currency: "INR",
-                success_url: "http://localhost:5173/success",
-                cancel_url: "http://localhost:5173/cancel",
+                success_url: `${import.meta.env.VITE_FRONTEND_URL}/success`,
+                cancel_url: `${import.meta.env.VITE_FRONTEND_URL}/cancel`,
                 quantity: cart.quantity,
                 metadata: {
                     userId: String(user._id),
@@ -99,7 +105,9 @@ const Cart = () => {
             };
 
             const res = await fetch(
-                "http://localhost:3000/payment/create-checkout-session",
+                `${
+                    import.meta.env.VITE_BACKEND_URL
+                }/api/payment/create-checkout-session`,
                 {
                     method: "POST",
                     headers: {

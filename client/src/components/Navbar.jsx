@@ -9,9 +9,12 @@ const Navbar = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await fetch("http://localhost:3000/auth/me", {
-                credentials: "include",
-            });
+            const res = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/me`,
+                {
+                    credentials: "include",
+                }
+            );
             if (res.ok) {
                 const data = await res.json();
                 setUser(data);
@@ -23,10 +26,13 @@ const Navbar = () => {
     }, [location]); // fetch user info when URL changes
 
     const handleLogout = async () => {
-        const res = await fetch("http://localhost:3000/auth/logout", {
-            method: "POST",
-            credentials: "include",
-        });
+        const res = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
+            {
+                method: "POST",
+                credentials: "include",
+            }
+        );
         if (res.ok) {
             setUser(null);
             navigate(0);
