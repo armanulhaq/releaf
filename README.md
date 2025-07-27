@@ -11,7 +11,7 @@ A modern full-stack application where users can buy sustainable products. It is 
 -   **Order History** - View past purchases in MyOrders
 -   **Responsive Design** - Fully responsive design
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -26,7 +26,7 @@ A modern full-stack application where users can buy sustainable products. It is 
 
 -   **Node.js** - Runtime environment
 -   **Express** - Web framework
--   **MongoDB** - Database (via MongoDB Atlas)
+-   **MongoDB** - Database
 -   **Mongoose** - ODM for MongoDB
 -   **JWT** - Authentication
 -   **Stripe** - Payment processing
