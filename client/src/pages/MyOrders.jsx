@@ -20,10 +20,13 @@ const MyOrders = () => {
             try {
                 setIsLoading(true);
 
-                const res = await fetch("https://releaf-backend.vercel.app/api/auth/me", {
-                    method: "GET",
-                    credentials: "include",
-                });
+                const res = await fetch(
+                    "https://releaf-backend.vercel.app/api/auth/me",
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
 
                 const data = await res.json();
 
@@ -87,7 +90,7 @@ const MyOrders = () => {
             <div className="min-h-[85vh]">
                 <div className="container mx-auto px-4 py-8">
                     <div className="max-w-4xl mx-auto">
-                        <div className="rounded-lg border p-8 text-center">
+                        <div className="p-8 text-center">
                             <ShoppingBag className="h-16 w-16 mx-auto mb-4" />
                             <h2 className="text-2xl font-semibold mb-2">
                                 No orders yet

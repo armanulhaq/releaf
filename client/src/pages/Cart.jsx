@@ -21,10 +21,13 @@ const Cart = () => {
             try {
                 setUserLoading(true);
 
-                const res = await fetch("https://releaf-backend.vercel.app/api/auth/me", {
-                    method: "GET",
-                    credentials: "include",
-                });
+                const res = await fetch(
+                    "https://releaf-backend.vercel.app/api/auth/me",
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
 
                 const data = await res.json();
 
@@ -47,10 +50,13 @@ const Cart = () => {
         const fetchCart = async () => {
             try {
                 setIsLoading(true);
-                const res = await fetch("https://releaf-backend.vercel.app/api/cart/", {
-                    method: "GET",
-                    credentials: "include",
-                });
+                const res = await fetch(
+                    "https://releaf-backend.vercel.app/api/cart/",
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
                 if (!res.ok) {
                     throw new Error("Failed to fetch cart");
                 }
@@ -141,8 +147,8 @@ const Cart = () => {
     if (!userLoading && !user) {
         return (
             <div className="p-6">
-                <div className="max-w-4xl mx-auto text-center py-20">
-                    <h2 className="text-3xl font-bold text-foreground mb-4">
+                <div className="min-h-[85vh] mx-auto text-center py-20">
+                    <h2 className="text-3xl font-bold mb-4">
                         Authentication Error
                     </h2>
                     <p className="mb-8">Please login to view your cart.</p>
@@ -160,7 +166,7 @@ const Cart = () => {
     if (cart.length === 0) {
         return (
             <div className="p-6">
-                <div className="max-w-4xl mx-auto">
+                <div className="min-h-[85vh] mx-auto">
                     <div className="text-center py-20">
                         <ShoppingBag className="w-24 h-24 mx-auto mb-6" />
                         <h2 className="text-3xl font-bold text-foreground mb-4">

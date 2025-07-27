@@ -14,6 +14,7 @@ router.post(
     "/webhook",
     express.raw({ type: "application/json" }),
     (req, res, next) => {
+        // Ensure we have the raw body for Vercel serverless
         req.rawBody = req.body;
         next();
     },
