@@ -99,7 +99,7 @@ const MyOrders = () => {
 
     return (
         <div className="min-h-[85vh]">
-            <div className="mx-auto px-4 py-6">
+            <div className="py-6">
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}
                     <div className="mb-6">
