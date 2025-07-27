@@ -14,7 +14,7 @@ const Homepage = ({ products, setProducts }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:3000/products")
+        fetch("https://releaf-backend.vercel.app/api/products")
             .then((res) => res.json())
             .then((data) => setProducts(data))
             .catch((err) => console.error("Failed to fetch:", err));

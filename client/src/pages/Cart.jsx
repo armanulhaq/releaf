@@ -21,7 +21,7 @@ const Cart = () => {
             try {
                 setUserLoading(true);
 
-                const res = await fetch("http://localhost:3000/auth/me", {
+                const res = await fetch("https://releaf-backend.vercel.app/api/auth/me", {
                     method: "GET",
                     credentials: "include",
                 });
@@ -47,7 +47,7 @@ const Cart = () => {
         const fetchCart = async () => {
             try {
                 setIsLoading(true);
-                const res = await fetch("http://localhost:3000/cart/", {
+                const res = await fetch("https://releaf-backend.vercel.app/api/cart/", {
                     method: "GET",
                     credentials: "include",
                 });
@@ -90,8 +90,8 @@ const Cart = () => {
             const payload = {
                 product: cart,
                 currency: "INR",
-                success_url: "http://localhost:5173/success",
-                cancel_url: "http://localhost:5173/cancel",
+                success_url: `${window.location.origin}/success`,
+                cancel_url: `${window.location.origin}/cancel`,
                 quantity: cart.quantity,
                 metadata: {
                     userId: String(user._id),
@@ -99,7 +99,7 @@ const Cart = () => {
             };
 
             const res = await fetch(
-                "http://localhost:3000/payment/create-checkout-session",
+                "https://releaf-backend.vercel.app/api/payment/create-checkout-session",
                 {
                     method: "POST",
                     headers: {

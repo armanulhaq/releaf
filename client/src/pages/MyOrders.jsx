@@ -20,7 +20,7 @@ const MyOrders = () => {
             try {
                 setIsLoading(true);
 
-                const res = await fetch("http://localhost:3000/auth/me", {
+                const res = await fetch("https://releaf-backend.vercel.app/api/auth/me", {
                     method: "GET",
                     credentials: "include",
                 });

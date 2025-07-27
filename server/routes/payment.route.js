@@ -14,7 +14,7 @@ router.post(
     "/webhook",
     express.raw({ type: "application/json" }),
     (req, res, next) => {
-        req.rawBody = req.body; // keep as buffer for Stripe
+        req.rawBody = req.body;
         next();
     },
     webhookHandler

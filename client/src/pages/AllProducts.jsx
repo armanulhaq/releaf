@@ -5,7 +5,7 @@ import NoProducts from "../components/NoProducts";
 const AllProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:3000/products")
+        fetch("https://releaf-backend.vercel.app/api/products")
             .then((res) => res.json())
             .then((data) => setAllProducts(data));
     }, []);

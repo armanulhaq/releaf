@@ -9,7 +9,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await fetch("http://localhost:3000/auth/me", {
+            const res = await fetch("https://releaf-backend.vercel.app/api/auth/me", {
                 credentials: "include",
             });
             if (res.ok) {
@@ -23,7 +23,7 @@ const Navbar = () => {
     }, [location]); // fetch user info when URL changes
 
     const handleLogout = async () => {
-        const res = await fetch("http://localhost:3000/auth/logout", {
+        const res = await fetch("https://releaf-backend.vercel.app/api/auth/logout", {
             method: "POST",
             credentials: "include",
         });

@@ -24,7 +24,7 @@ const Product = () => {
                 setIsLoading(true);
 
                 const res = await fetch(
-                    `http://localhost:3000/products/${id}`,
+                    `https://releaf-backend.vercel.app/api/products/${id}`,
                     {
                         method: "GET",
                         credentials: "include",
@@ -46,7 +46,7 @@ const Product = () => {
                 setProductDetails(productData);
 
                 const qtyRes = await fetch(
-                    `http://localhost:3000/cart/${productData._id}`,
+                    `https://releaf-backend.vercel.app/api/cart/${productData._id}`,
                     {
                         method: "GET",
                         credentials: "include",
@@ -67,7 +67,7 @@ const Product = () => {
 
     const updateCart = async (newQuantity) => {
         setQuantity(newQuantity);
-        await fetch("http://localhost:3000/cart/update", {
+        await fetch("https://releaf-backend.vercel.app/api/cart/update", {
             method: "POST",
             credentials: "include",
             headers: {
