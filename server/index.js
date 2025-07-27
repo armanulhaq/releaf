@@ -15,8 +15,15 @@ const app = express();
 
 app.use(
     cors({
-        origin: ["http://localhost:5173", "https://*.vercel.app"],
+        origin: [
+            "http://localhost:5173",
+            "http://localhost:3000",
+            /https:\/\/.*\.vercel\.app$/,
+            process.env.CLIENT_URL
+        ].filter(Boolean),
         credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
     })
 );
 
@@ -25,7 +32,20 @@ app.use("/api/payment", paymentRoutes);
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Hello World - ReLeaf API is running!");
+    res.json({
+        message: "ReLeaf API is running!",
+        version: "1.0.0",
+        status: "healthy",
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get("/api/health", (req, res) => {
+    res.json({
+        status: "healthy",
+        database: "connected",
+        timestamp: new Date().toISOString()
+    });
 });
 
 app.use("/api/products", productRoutes);
