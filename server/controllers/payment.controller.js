@@ -33,13 +33,12 @@ async function paymentHandler(req, res) {
 }
 
 async function webhookHandler(req, res) {
-    const sig = req.headers["stripe-signature"]; //automatically added when stripe sends the webhook
+    const sig = req.headers["stripe-signature"];
     let event;
     try {
-        // Use req.body directly for Vercel serverless functions
         const body = req.rawBody || req.body;
         event = stripe.webhooks.constructEvent(
-            body, // buffer
+            body,
             sig,
             process.env.STRIPE_WEBHOOK_SECRET
         );

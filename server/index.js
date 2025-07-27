@@ -16,14 +16,12 @@ const app = express();
 app.use(
     cors({
         origin: [
-            "http://localhost:5173",
-            "http://localhost:3000",
-            /https:\/\/.*\.vercel\.app$/,
-            process.env.CLIENT_URL
+            "https://releaf-store.vercel.app", // my specific frontend domain
+            process.env.CLIENT_URL, // fallback for environment variable
         ].filter(Boolean),
         credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
     })
 );
 
@@ -36,7 +34,7 @@ app.get("/", (req, res) => {
         message: "ReLeaf API is running!",
         version: "1.0.0",
         status: "healthy",
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
     });
 });
 
@@ -44,7 +42,7 @@ app.get("/api/health", (req, res) => {
     res.json({
         status: "healthy",
         database: "connected",
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
     });
 });
 

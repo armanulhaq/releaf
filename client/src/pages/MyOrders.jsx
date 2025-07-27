@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
-import {
-    Package,
-    Calendar,
-    CreditCard,
-    ShoppingBag,
-    User,
-    Mail,
-} from "lucide-react";
+import { Package, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const MyOrders = () => {
@@ -46,11 +39,9 @@ const MyOrders = () => {
 
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
+            month: "short",
             day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
+            year: "numeric",
         });
     };
 
@@ -108,102 +99,87 @@ const MyOrders = () => {
 
     return (
         <div className="min-h-[85vh]">
-            <div className="mx-auto px-4 py-8">
+            <div className="mx-auto px-4 py-6">
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}
-                    <div className="mb-8">
-                        <h1 className="text-3xl font-bold mb-2">My Orders</h1>
-                        <div className="flex items-center space-x-4">
-                            <div className="flex items-center space-x-2">
-                                <User className="h-4 w-4" />
-                                <span>{user.name}</span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Mail className="h-4 w-4" />
-                                <span>{user.email}</span>
-                            </div>
-                        </div>
+                    <div className="mb-6">
+                        <h1 className="text-2xl md:text-3xl font-bold text-center md:text-left">
+                            My Orders
+                        </h1>
+                        <p className="text-sm text-gray-600 text-center md:text-left mt-1">
+                            {user.orders.length} order
+                            {user.orders.length !== 1 ? "s" : ""} found
+                        </p>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                         {user.orders.map((order, orderIndex) => (
                             <div
                                 key={order._id}
-                                className="rounded-lg border-1 border-gray-300 overflow-hidden bg-amber-50"
+                                className="rounded-lg border border-gray-200 shadow-sm overflow-hidden"
                             >
-                                <div className="px-6 py-4 ">
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 ">
-                                        <div className="flex items-center space-x-4 ">
-                                            <div className="p-2 rounded-lg">
-                                                <Package className="h-5 w-5" />
-                                            </div>
+                                {/* Order Header */}
+                                <div className="px-4 py-3 border-b">
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                        <div className="flex items-center gap-3">
+                                            <Package className="h-4 w-4 text-gray-600" />
                                             <div>
-                                                <h3 className="text-lg font-semibold">
+                                                <h3 className="text-sm font-semibold">
                                                     Order #{orderIndex + 1}
                                                 </h3>
-                                                <div className="flex items-center space-x-2 text-sm">
-                                                    <Calendar className="h-4 w-4" />
-                                                    <span>
-                                                        {formatDate(
-                                                            order.createdAt
-                                                        )}
-                                                    </span>
-                                                </div>
+                                                <p className="text-xs text-gray-500">
+                                                    {formatDate(
+                                                        order.createdAt
+                                                    )}
+                                                </p>
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-2xl font-bold ">
+                                            <div className="text-lg font-bold text-green-600">
                                                 {formatPrice(order.totalAmount)}
                                             </div>
-                                            <div className="flex items-center space-x-1 text-sm ">
-                                                <CreditCard className="h-4 w-4" />
-                                                <span>
-                                                    Payment ID:{" "}
-                                                    {order.paymentIntentId.slice(
-                                                        -8
-                                                    )}
-                                                </span>
-                                            </div>
+                                            <p className="text-xs text-gray-500">
+                                                {order.products.length} item
+                                                {order.products.length !== 1
+                                                    ? "s"
+                                                    : ""}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Products List */}
-                                <div className="p-6">
-                                    <div className="space-y-4">
+                                <div className="p-4">
+                                    <div className="space-y-3">
                                         {order.products.map((item) => (
                                             <div
                                                 key={item._id}
-                                                className="flex items-center space-x-4 p-4 rounded-lg  border-b border-1 border-gray-300"
+                                                className="flex items-center gap-3 p-3 rounded-lg border-1 border-gray-200"
                                             >
-                                                <div className="flex-shrink-0">
-                                                    <img
-                                                        src={
-                                                            item.product
-                                                                .images[0]
-                                                        }
-                                                        alt={item.product.name}
-                                                        className="w-16 h-16 object-cover rounded-lg"
-                                                    />
-                                                </div>
+                                                <img
+                                                    src={item.product.images[0]}
+                                                    alt={item.product.name}
+                                                    className="w-12 h-12 md:w-16 md:h-16 object-cover rounded-lg flex-shrink-0"
+                                                />
                                                 <div className="flex-1 min-w-0">
-                                                    <h4 className="text-base font-medium truncate">
+                                                    <h4 className="text-sm md:text-base font-medium truncate">
                                                         {item.product.name}
                                                     </h4>
-                                                    <div className="flex items-center space-x-4 mt-1">
-                                                        <span className="text-sm">
+                                                    <div className="flex items-center gap-4 mt-1">
+                                                        <span className="text-xs md:text-sm text-gray-600">
                                                             Qty: {item.quantity}
                                                         </span>
-                                                        <span className="text-sm font-medium">
+                                                        <span className="text-xs md:text-sm font-medium">
                                                             {formatPrice(
                                                                 item.product
                                                                     .discountPrice
-                                                            )}
+                                                            )}{" "}
+                                                            each
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div className="text-right">
-                                                    <div className="text-lg font-semibold">
+                                                <div className="text-right flex-shrink-0">
+                                                    <div className="text-sm md:text-base font-semibold">
                                                         {formatPrice(
                                                             item.product
                                                                 .discountPrice *

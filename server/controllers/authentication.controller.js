@@ -38,7 +38,7 @@ const login = async (req, res) => {
     res.cookie("token", token, {
         httpOnly: true, // Prevents JS access — good for security
         sameSite: "None", // allows us to send from 3000 to 5173
-        secure: true, // Set to true only in production over HTTPS
+        secure: true,
         maxAge: 1000 * 60 * 60, // 1 hour
     });
     return res.status(200).json({ message: "Successfully logged you in" });
