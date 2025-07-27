@@ -15,10 +15,9 @@ const app = express();
 
 app.use(
     cors({
-        origin: [
-            "https://releaf-store.vercel.app", // my specific frontend domain
-            process.env.CLIENT_URL, // fallback for environment variable
-        ].filter(Boolean),
+        origin: [/https:\/\/.*\.vercel\.app$/, process.env.CLIENT_URL].filter(
+            Boolean
+        ),
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
