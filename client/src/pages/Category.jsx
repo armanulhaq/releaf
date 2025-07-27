@@ -1,13 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import Loader from "../components/Loader";
 
 const Category = () => {
     const [allProducts, setAllProducts] = useState([]);
     useEffect(() => {
         {
             async function fetchAllProducts() {
-                const res = await fetch("https://releaf-backend.vercel.app/api/products");
+                const res = await fetch(
+                    "https://releaf-backend.vercel.app/api/products"
+                );
                 const data = await res.json();
                 setAllProducts(data);
             }
@@ -20,6 +23,9 @@ const Category = () => {
     const filteredProducts = allProducts.filter(
         (product) => product.category.toLowerCase() === category.toLowerCase()
     );
+    if (filteredProducts.length === 0) {
+        return <Loader />;
+    }
     return (
         <>
             <div className="text-2xl font-bold my-6">{category}</div>
