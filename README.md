@@ -1,8 +1,8 @@
 # ReLeaf
 
-A modern full-stack e-commerce application for sustainable products built with MERN stack.
+A modern full-stack application where users can buy sustainable products. It is built with MERN stack, featuring JWT authentication, Stripe payments, and responsive design.
 
-## ✨ Features
+## Features
 
 -   **Product Catalog** - Browse eco-friendly products by category
 -   **User Authentication** - Secure JWT-based login/signup
