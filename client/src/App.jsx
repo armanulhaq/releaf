@@ -19,7 +19,7 @@ function App() {
     return (
         <div>
             <Navbar />
-            <div className="mx-7 md:mx-12 lg:mx-24">
+            <div className="mx-7 md:mx-12 xl:mx-24">
                 <Routes>
                     <Route
                         path="/"
