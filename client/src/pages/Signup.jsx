@@ -14,13 +14,16 @@ const Signup = () => {
         e.preventDefault();
         setErrorMsg("");
         try {
-            const res = await fetch("https://releaf-backend.vercel.app/api/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ name, email, password }),
-            });
+            const res = await fetch(
+                "https://releaf-backend.vercel.app/api/auth/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name, email, password }),
+                }
+            );
 
             if (res.status === 200 || res.status === 201) {
                 navigate("/login");
@@ -60,12 +63,12 @@ const Signup = () => {
                     <p className="text-sm text-gray-500/90 mt-3 mb-5">
                         Create an account to continue
                     </p>
-                    <div className="flex items-center w-full border border-gray-300/60 h-12 rounded-2xl pl-3 gap-2">
+                    <div className="flex items-center w-full border border-gray-300/60 h-12 pl-3 gap-2 rounded-2xl">
                         <User className="w-6 h-6" />
                         <input
                             type="name"
                             placeholder="Name"
-                            className=" placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
+                            className=" placeholder-gray-500/80 outline-none text-sm w-full h-full px-5"
                             required
                             onChange={(e) => setName(e.target.value)}
                         />
@@ -75,7 +78,7 @@ const Signup = () => {
                         <input
                             type="email"
                             placeholder="Email ID"
-                            className=" text-gray-500/80 bg-white placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
+                            className=" text-gray-500/80 bg-white placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-r-2xl"
                             required
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -93,7 +96,7 @@ const Signup = () => {
                         <input
                             type="password"
                             placeholder="Password"
-                            className=" text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
+                            className=" text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-r-2xl"
                             required
                             onChange={(e) => setPassword(e.target.value)}
                         />

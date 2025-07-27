@@ -12,14 +12,17 @@ const Login = () => {
         e.preventDefault();
         setErrorMsg("");
         try {
-            const res = await fetch("https://releaf-backend.vercel.app/api/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-                credentials: "include", // to send cookies
-            });
+            const res = await fetch(
+                "https://releaf-backend.vercel.app/api/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: "include", // to send cookies
+                }
+            );
 
             if (res.status === 200) {
                 navigate("/");
@@ -62,7 +65,7 @@ const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email ID"
-                            className=" text-gray-500/80 bg-white placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
+                            className=" text-gray-500/80 bg-white placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-r-2xl"
                             required
                         />
                     </div>
@@ -81,7 +84,7 @@ const Login = () => {
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className=" text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-2xl"
+                            className=" text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full px-5 rounded-r-2xl"
                             required
                         />
                     </div>
