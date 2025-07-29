@@ -113,86 +113,94 @@ const MyOrders = () => {
                     </div>
 
                     <div className="space-y-4">
-                        {user.orders.map((order, orderIndex) => (
-                            <div
-                                key={order._id}
-                                className="rounded-lg border border-gray-200 shadow-sm overflow-hidden"
-                            >
-                                {/* Order Header */}
-                                <div className="px-4 py-3 border-b">
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                                        <div className="flex items-center gap-3">
-                                            <Package className="h-4 w-4 text-gray-600" />
-                                            <div>
-                                                <h3 className="text-sm font-semibold">
-                                                    Order #{orderIndex + 1}
-                                                </h3>
-                                                <p className="text-xs text-gray-500">
-                                                    {formatDate(
-                                                        order.createdAt
+                        {user.orders
+                            .slice()
+                            .reverse()
+                            .map((order, orderIndex) => (
+                                <div
+                                    key={order._id}
+                                    className="rounded-lg border border-gray-200 shadow-sm overflow-hidden"
+                                >
+                                    <div className="px-4 py-3 border-b">
+                                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                            <div className="flex items-center gap-3">
+                                                <Package className="h-4 w-4 text-gray-600" />
+                                                <div>
+                                                    <h3 className="text-sm font-semibold">
+                                                        Order #{orderIndex + 1}
+                                                    </h3>
+                                                    <p className="text-xs text-gray-500">
+                                                        {formatDate(
+                                                            order.createdAt
+                                                        )}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="text-lg font-bold text-green-600">
+                                                    {formatPrice(
+                                                        order.totalAmount
                                                     )}
+                                                </div>
+                                                <p className="text-xs text-gray-500">
+                                                    {order.products.length} item
+                                                    {order.products.length !== 1
+                                                        ? "s"
+                                                        : ""}
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="text-right">
-                                            <div className="text-lg font-bold text-green-600">
-                                                {formatPrice(order.totalAmount)}
-                                            </div>
-                                            <p className="text-xs text-gray-500">
-                                                {order.products.length} item
-                                                {order.products.length !== 1
-                                                    ? "s"
-                                                    : ""}
-                                            </p>
+                                    </div>
+
+                                    {/* Products List */}
+                                    <div className="p-4">
+                                        <div className="space-y-3">
+                                            {order.products.map((item) => (
+                                                <div
+                                                    key={item._id}
+                                                    className="flex items-center gap-3 p-3 rounded-lg border-1 border-gray-200"
+                                                >
+                                                    <img
+                                                        src={
+                                                            item.product
+                                                                .images[0]
+                                                        }
+                                                        alt={item.product.name}
+                                                        className="w-12 h-12 md:w-16 md:h-16 object-cover rounded-lg flex-shrink-0"
+                                                    />
+                                                    <div className="flex-1 min-w-0">
+                                                        <h4 className="text-sm md:text-base font-medium truncate">
+                                                            {item.product.name}
+                                                        </h4>
+                                                        <div className="flex items-center gap-4 mt-1">
+                                                            <span className="text-xs md:text-sm text-gray-600">
+                                                                Qty:{" "}
+                                                                {item.quantity}
+                                                            </span>
+                                                            <span className="text-xs md:text-sm font-medium">
+                                                                {formatPrice(
+                                                                    item.product
+                                                                        .discountPrice
+                                                                )}{" "}
+                                                                each
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-right flex-shrink-0">
+                                                        <div className="text-sm md:text-base font-semibold">
+                                                            {formatPrice(
+                                                                item.product
+                                                                    .discountPrice *
+                                                                    item.quantity
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Products List */}
-                                <div className="p-4">
-                                    <div className="space-y-3">
-                                        {order.products.map((item) => (
-                                            <div
-                                                key={item._id}
-                                                className="flex items-center gap-3 p-3 rounded-lg border-1 border-gray-200"
-                                            >
-                                                <img
-                                                    src={item.product.images[0]}
-                                                    alt={item.product.name}
-                                                    className="w-12 h-12 md:w-16 md:h-16 object-cover rounded-lg flex-shrink-0"
-                                                />
-                                                <div className="flex-1 min-w-0">
-                                                    <h4 className="text-sm md:text-base font-medium truncate">
-                                                        {item.product.name}
-                                                    </h4>
-                                                    <div className="flex items-center gap-4 mt-1">
-                                                        <span className="text-xs md:text-sm text-gray-600">
-                                                            Qty: {item.quantity}
-                                                        </span>
-                                                        <span className="text-xs md:text-sm font-medium">
-                                                            {formatPrice(
-                                                                item.product
-                                                                    .discountPrice
-                                                            )}{" "}
-                                                            each
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right flex-shrink-0">
-                                                    <div className="text-sm md:text-base font-semibold">
-                                                        {formatPrice(
-                                                            item.product
-                                                                .discountPrice *
-                                                                item.quantity
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
                     </div>
                 </div>
             </div>
