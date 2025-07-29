@@ -13,11 +13,21 @@ const Homepage = ({ products, setProducts }) => {
 
     const navigate = useNavigate();
 
+    const [fetchError, setFetchError] = useState(null);
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
-            .then((res) => res.json())
-            .then((data) => setProducts(data))
-            .catch((err) => console.error("Failed to fetch:", err));
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
+            .then((data) => {
+                setProducts(data);
+                setFetchError(null);
+            })
+            .catch((err) => {
+                setFetchError("Could not connect to server. Please try again later.");
+                setProducts([]);
+            });
     }, []);
 
     const handlePrev = () => {

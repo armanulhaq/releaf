@@ -15,7 +15,9 @@ const Categories = () => {
 
     useEffect(() => {
         async function fetchAllProducts() {
-            const res = await fetch("https://releaf-backend.vercel.app/api/products");
+            const res = await fetch(
+                `${import.meta.env.VITE_API_BASE_URL}/api/products`
+            );
             const data = await res.json();
             setAllProducts(data);
         }

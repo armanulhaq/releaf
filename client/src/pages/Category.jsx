@@ -5,17 +5,23 @@ import Loader from "../components/Loader";
 
 const Category = () => {
     const [allProducts, setAllProducts] = useState([]);
+    const [fetchError, setFetchError] = useState(null);
     useEffect(() => {
-        {
-            async function fetchAllProducts() {
+        async function fetchAllProducts() {
+            try {
                 const res = await fetch(
                     `${import.meta.env.VITE_API_BASE_URL}/api/products`
                 );
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 const data = await res.json();
                 setAllProducts(data);
+                setFetchError(null);
+            } catch (err) {
+                setFetchError("Could not connect to server. Please try again later.");
+                setAllProducts([]);
             }
-            fetchAllProducts();
         }
+        fetchAllProducts();
     }, []);
 
     const { category } = useParams();

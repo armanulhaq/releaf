@@ -4,10 +4,21 @@ import Loader from "../components/Loader";
 import NoProducts from "../components/NoProducts";
 const AllProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
+    const [fetchError, setFetchError] = useState(null);
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
-            .then((res) => res.json())
-            .then((data) => setAllProducts(data));
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
+            .then((data) => {
+                setAllProducts(data);
+                setFetchError(null);
+            })
+            .catch((err) => {
+                setFetchError("Could not connect to server. Please try again later.");
+                setAllProducts([]);
+            });
     }, []);
     if (!allProducts.length) return <Loader />;
     if (allProducts.length === 0) return <NoProducts />;
