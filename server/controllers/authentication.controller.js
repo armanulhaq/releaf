@@ -1,7 +1,9 @@
 import { getUser, setUser } from "../middleware/auth.js";
 import User from "../models/user.model.js";
+import connectDB from "../configs/db.js";
 
 const register = async (req, res) => {
+    await connectDB();
     try {
         const { name, email, password } = req.body;
 
@@ -25,6 +27,8 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+    await connectDB();
+    await connectDB();
     const { email, password } = req.body;
 
     const user = await User.findOne({ email, password });
@@ -45,6 +49,7 @@ const login = async (req, res) => {
 };
 
 const authMe = async (req, res) => {
+    await connectDB();
     const token = req.cookies.token;
     if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
