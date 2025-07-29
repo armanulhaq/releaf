@@ -15,7 +15,10 @@ const app = express();
 
 app.use(
     cors({
-        origin: "https://releaf-store.onrender.com",
+        origin: [
+            "https://releaf-store.vercel.app",
+            "https://releaf-store.onrender.com",
+        ],
         credentials: true,
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
