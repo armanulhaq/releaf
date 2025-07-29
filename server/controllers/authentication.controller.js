@@ -28,7 +28,6 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     await connectDB();
-    await connectDB();
     const { email, password } = req.body;
 
     const user = await User.findOne({ email, password });
