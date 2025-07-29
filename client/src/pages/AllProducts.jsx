@@ -5,7 +5,7 @@ import NoProducts from "../components/NoProducts";
 const AllProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
     useEffect(() => {
-        fetch("https://releaf-backend.vercel.app/api/products")
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
             .then((res) => res.json())
             .then((data) => setAllProducts(data));
     }, []);

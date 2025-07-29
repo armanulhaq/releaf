@@ -10,7 +10,7 @@ const Navbar = () => {
     useEffect(() => {
         const fetchUser = async () => {
             const res = await fetch(
-                "https://releaf-backend.vercel.app/api/auth/me",
+                `${import.meta.env.VITE_API_BASE_URL}/api/auth/me`,
                 {
                     credentials: "include",
                 }
@@ -27,7 +27,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         const res = await fetch(
-            "https://releaf-backend.vercel.app/api/auth/logout",
+            `${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`,
             {
                 method: "POST",
                 credentials: "include",

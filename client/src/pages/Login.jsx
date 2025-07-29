@@ -13,7 +13,7 @@ const Login = () => {
         setErrorMsg("");
         try {
             const res = await fetch(
-                "https://releaf-backend.vercel.app/api/auth/login",
+                `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
                 {
                     method: "POST",
                     headers: {

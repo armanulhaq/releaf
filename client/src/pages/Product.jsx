@@ -24,7 +24,7 @@ const Product = () => {
                 setIsLoading(true);
 
                 const res = await fetch(
-                    `https://releaf-backend.vercel.app/api/products/${id}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
                     {
                         method: "GET",
                         credentials: "include",
@@ -46,7 +46,9 @@ const Product = () => {
                 setProductDetails(productData);
 
                 const qtyRes = await fetch(
-                    `https://releaf-backend.vercel.app/api/cart/${productData._id}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/cart/${
+                        productData._id
+                    }`,
                     {
                         method: "GET",
                         credentials: "include",
@@ -67,7 +69,7 @@ const Product = () => {
 
     const updateCart = async (newQuantity) => {
         setQuantity(newQuantity);
-        await fetch("https://releaf-backend.vercel.app/api/cart/update", {
+        await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/cart/update`, {
             method: "POST",
             credentials: "include",
             headers: {

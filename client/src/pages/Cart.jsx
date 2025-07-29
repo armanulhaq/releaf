@@ -22,7 +22,7 @@ const Cart = () => {
                 setUserLoading(true);
 
                 const res = await fetch(
-                    "https://releaf-backend.vercel.app/api/auth/me",
+                    `${import.meta.env.VITE_API_BASE_URL}/api/auth/me`,
                     {
                         method: "GET",
                         credentials: "include",
@@ -51,7 +51,7 @@ const Cart = () => {
             try {
                 setIsLoading(true);
                 const res = await fetch(
-                    "https://releaf-backend.vercel.app/api/cart/",
+                    `${import.meta.env.VITE_API_BASE_URL}/api/cart/`,
                     {
                         method: "GET",
                         credentials: "include",
@@ -105,7 +105,9 @@ const Cart = () => {
             };
 
             const res = await fetch(
-                "https://releaf-backend.vercel.app/api/payment/create-checkout-session",
+                `${
+                    import.meta.env.VITE_API_BASE_URL
+                }/api/payment/create-checkout-session`,
                 {
                     method: "POST",
                     headers: {

@@ -14,7 +14,7 @@ const Homepage = ({ products, setProducts }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("https://releaf-backend.vercel.app/api/products")
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
             .then((res) => res.json())
             .then((data) => setProducts(data))
             .catch((err) => console.error("Failed to fetch:", err));

@@ -15,7 +15,7 @@ const Signup = () => {
         setErrorMsg("");
         try {
             const res = await fetch(
-                "https://releaf-backend.vercel.app/api/auth/register",
+                `${import.meta.env.VITE_API_BASE_URL}/api/auth/register`,
                 {
                     method: "POST",
                     headers: {
