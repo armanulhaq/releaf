@@ -29,17 +29,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.json({
         message: "ReLeaf API is running!",
-        version: "1.0.0",
         status: "healthy",
-        timestamp: new Date().toISOString(),
-    });
-});
-
-app.get("/api/health", (req, res) => {
-    res.json({
-        status: "healthy",
-        database: "connected",
-        timestamp: new Date().toISOString(),
     });
 });
 

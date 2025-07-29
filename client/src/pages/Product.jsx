@@ -37,6 +37,7 @@ const Product = () => {
                 }
 
                 if (!res.ok) {
+                    console.error(`Unexpected error: ${res.status}`);
                     throw new Error(
                         `Product fetch failed with status ${res.status}`
                     );

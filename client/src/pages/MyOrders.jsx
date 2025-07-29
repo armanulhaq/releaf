@@ -21,12 +21,21 @@ const MyOrders = () => {
                     }
                 );
 
-                const data = await res.json();
+                if (res.status === 401) {
+                    setUser(null);
+                    // Do not log 401 errors to console
+                } else if (!res.ok) {
+                    // Log only unexpected errors
+                    console.error(`Unexpected error: ${res.status}`);
+                    setUser(null);
+                } else {
+                    const data = await res.json();
 
-                // Extract the user object from the nested response
-                const userData = data.user;
+                    // Extract the user object from the nested response
+                    const userData = data.user;
 
-                setUser(userData);
+                    setUser(userData);
+                }
             } catch (error) {
                 console.error("Error details:", error.message);
                 setUser(null);
@@ -127,7 +136,7 @@ const MyOrders = () => {
                                                 <Package className="h-4 w-4 text-gray-600" />
                                                 <div>
                                                     <h3 className="text-sm font-semibold">
-                                                        Order #{orderIndex + 1}
+                                                        Ordered on
                                                     </h3>
                                                     <p className="text-xs text-gray-500">
                                                         {formatDate(
