@@ -51,10 +51,3 @@ app.use("/api/cart", cartRoutes);
 
 // Export for Vercel
 export default app;
-
-// Only listen in development
-if (process.env.NODE_ENV !== "production") {
-    app.listen(3000, () => {
-        console.log("Server running on 3000");
-    });
-}
