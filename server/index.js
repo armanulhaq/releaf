@@ -15,11 +15,9 @@ const app = express();
 
 app.use(
     cors({
-        origin: [/https:\/\/.*\.vercel\.app$/, process.env.CLIENT_URL].filter(
-            Boolean
-        ),
+        origin: "https://releaf-store.vercel.app",
         credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
     })
 );
