@@ -17,9 +17,7 @@ const Navbar = () => {
             );
             if (res.status === 401) {
                 setUser(null);
-                // Do not log 401 errors to console
             } else if (!res.ok) {
-                // Log only unexpected errors
                 console.error(`Unexpected error: ${res.status}`);
                 setUser(null);
             } else {

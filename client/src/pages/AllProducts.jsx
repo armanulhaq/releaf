@@ -8,7 +8,8 @@ const AllProducts = () => {
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
             .then((res) => {
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                if (!res.ok)
+                    throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
             })
             .then((data) => {
@@ -16,10 +17,13 @@ const AllProducts = () => {
                 setFetchError(null);
             })
             .catch((err) => {
-                setFetchError("Could not connect to server. Please try again later.");
+                setFetchError(
+                    "Could not connect to server. Please try again later.",
+                    err
+                );
                 setAllProducts([]);
             });
-    }, []);
+    }, [fetchError]);
     if (!allProducts.length) return <Loader />;
     if (allProducts.length === 0) return <NoProducts />;
     return (

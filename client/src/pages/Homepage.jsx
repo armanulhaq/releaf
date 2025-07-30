@@ -14,10 +14,12 @@ const Homepage = ({ products, setProducts }) => {
     const navigate = useNavigate();
 
     const [fetchError, setFetchError] = useState(null);
+
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
             .then((res) => {
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                if (!res.ok)
+                    throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
             })
             .then((data) => {
@@ -25,7 +27,9 @@ const Homepage = ({ products, setProducts }) => {
                 setFetchError(null);
             })
             .catch((err) => {
-                setFetchError("Could not connect to server. Please try again later.");
+                setFetchError(
+                    "Could not connect to server. Please try again later."
+                );
                 setProducts([]);
             });
     }, []);
@@ -49,14 +53,14 @@ const Homepage = ({ products, setProducts }) => {
     if (!products.length) return <Loader />;
 
     if (products.length === 0) return <NoProducts />;
-
     return (
         <div className="w-full relative">
-            <div className="flex md:flex-row flex-col gap-5 md:gap-0 items-center  rounded-lg lg:p-8">
+            <div className="flex md:flex-row flex-col gap-5 md:gap-0 items-center rounded-lg lg:p-8">
                 <div
-                    className={`md:w-2/3 overflow-hidden relative h-170 transition-opacity duration-300 ${
+                    className={`md:w-2/3 overflow-hidden relative h-170 transition-opacity duration-300 cursor-pointer ${
                         fade ? "opacity-100" : "opacity-0"
                     }`}
+                    onClick={() => navigate(`/product/${products[count]?._id}`)}
                 >
                     <img
                         src={products[count]?.images?.[0]}
