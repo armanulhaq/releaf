@@ -10,12 +10,14 @@ import Categories from "../components/Categories";
 const Homepage = ({ products, setProducts }) => {
     const [count, setCount] = useState(2); //i wanted the third product to be displayed first
     const [fade, setFade] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
 
     const [fetchError, setFetchError] = useState(null);
 
     useEffect(() => {
+        setLoading(true);
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
             .then((res) => {
                 if (!res.ok)
@@ -26,11 +28,14 @@ const Homepage = ({ products, setProducts }) => {
                 setProducts(data);
                 setFetchError(null);
             })
-            .catch((err) => {
+            .catch(() => {
                 setFetchError(
                     "Could not connect to server. Please try again later."
                 );
                 setProducts([]);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, []);
 
@@ -50,7 +55,21 @@ const Homepage = ({ products, setProducts }) => {
         }, 200);
     };
 
-    if (!products.length) return <Loader />;
+    if (loading) return <Loader />;
+
+    if (fetchError) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-96">
+                <p className="text-red-500 text-center mb-4">{fetchError}</p>
+                <button
+                    onClick={() => window.location.reload()}
+                    className="px-4 py-2 bg-[#432507] text-white rounded hover:bg-[#5a3209] transition-colors"
+                >
+                    Retry
+                </button>
+            </div>
+        );
+    }
 
     if (products.length === 0) return <NoProducts />;
     return (
