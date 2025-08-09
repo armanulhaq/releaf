@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "../components/ProductCard";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader";
+import RenderLoader from "../components/RenderLoader";
 import Benefits from "../components/Benefits";
 import NoProducts from "../components/NoProducts";
 import Categories from "../components/Categories";
@@ -55,7 +55,7 @@ const Homepage = ({ products, setProducts }) => {
         }, 200);
     };
 
-    if (loading) return <Loader />;
+    if (loading) return <RenderLoader />;
 
     if (fetchError) {
         return (
