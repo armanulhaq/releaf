@@ -6,7 +6,6 @@ const Navbar = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-    console.log("User", user);
 
     useEffect(() => {
         const fetchUser = async () => {

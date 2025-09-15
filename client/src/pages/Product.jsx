@@ -8,6 +8,7 @@ const Product = () => {
     const [productDetails, setProductDetails] = useState(null);
     const [quantity, setQuantity] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [isUpdating, setIsUpdating] = useState(false); // Adding this to prevent rapid clicks
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -22,7 +23,6 @@ const Product = () => {
         const fetchProductAndQuantity = async () => {
             try {
                 setIsLoading(true);
-
                 const res = await fetch(
                     `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
                     {
@@ -67,19 +67,41 @@ const Product = () => {
         if (id) fetchProductAndQuantity();
     }, [id]);
 
+    // Preventing race conditions and handle errors properly
     const updateCart = async (newQuantity) => {
-        setQuantity(newQuantity);
-        await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/cart/update`, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                product: productDetails._id,
-                quantity: newQuantity,
-            }),
-        });
+        if (isUpdating) return; // Prevents rapid clicks
+
+        setIsUpdating(true);
+        const previousQuantity = quantity; // Store previous value for rollback
+
+        try {
+            setQuantity(newQuantity);
+
+            const response = await fetch(
+                `${import.meta.env.VITE_API_BASE_URL}/api/cart/update`,
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        product: productDetails._id,
+                        quantity: newQuantity,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to update cart");
+            }
+        } catch (error) {
+            console.error("Error updating cart:", error);
+            // Rollback on error
+            setQuantity(previousQuantity);
+        } finally {
+            setIsUpdating(false);
+        }
     };
 
     const renderStars = (rating) => {
@@ -147,7 +169,7 @@ const Product = () => {
                             Key Features
                         </h3>
                         <div className="space-y-1">
-                            {productDetails.features.map((feature, index) => (
+                            {productDetails.features?.map((feature, index) => (
                                 <div
                                     key={index}
                                     className="flex items-start gap-3"
@@ -178,16 +200,25 @@ const Product = () => {
                     </div>
 
                     <div className="flex gap-3 items-center lg:w-[70%]">
-                        <button className="flex gap-2 px-2 py-1 lg:py-2 bg-gray-200 w-[40%] justify-between items-center rounded-sm">
+                        <button
+                            className={`flex gap-2 px-2 py-1 lg:py-2 bg-gray-200 w-[40%] justify-between items-center rounded-sm ${
+                                isUpdating ? "opacity-50" : ""
+                            }`}
+                        >
                             <div
                                 onClick={() => {
+                                    if (isUpdating) return;
                                     const newQuantity = Math.max(
                                         0,
                                         quantity - 1
-                                    ); //prevents subzero values
+                                    );
                                     updateCart(newQuantity);
                                 }}
-                                className="w-10 h-10 flex items-center justify-center cursor-pointer"
+                                className={`w-10 h-10 flex items-center justify-center ${
+                                    isUpdating
+                                        ? "cursor-not-allowed"
+                                        : "cursor-pointer"
+                                }`}
                             >
                                 -
                             </div>
@@ -196,19 +227,28 @@ const Product = () => {
                             </div>
                             <div
                                 onClick={() => {
+                                    if (isUpdating) return;
                                     const newQuantity = quantity + 1;
                                     updateCart(newQuantity);
                                 }}
-                                className="w-10 h-10 flex items-center justify-center cursor-pointer"
+                                className={`w-10 h-10 flex items-center justify-center ${
+                                    isUpdating
+                                        ? "cursor-not-allowed"
+                                        : "cursor-pointer"
+                                }`}
                             >
                                 +
                             </div>
                         </button>
 
                         <button
-                            disabled={!productDetails.inStock}
+                            disabled={!productDetails.inStock || isUpdating}
                             onClick={() => navigate("/cart")}
-                            className="flex items-center gap-2 px-5 py-4 bg-[#432507] text-white w-[60%] justify-center rounded-sm cursor-pointer"
+                            className={`flex items-center gap-2 px-5 py-4 bg-[#432507] text-white w-[60%] justify-center rounded-sm cursor-pointer ${
+                                !productDetails.inStock || isUpdating
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : ""
+                            }`}
                         >
                             <ShoppingCart className="w-5 h-5 mr-2" />
                             Go to Cart
