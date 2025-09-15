@@ -9,6 +9,8 @@ const Product = () => {
     const [quantity, setQuantity] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [isUpdating, setIsUpdating] = useState(false); // Adding this to prevent rapid clicks
+    const [user, setUser] = useState(null);
+    const [isAuthChecked, setIsAuthChecked] = useState(false);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -18,6 +20,45 @@ const Product = () => {
         const discountPercentage = (discount / originalPrice) * 100;
         return discountPercentage.toFixed(0);
     };
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/api/auth/me`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
+
+                if (res.status === 401) {
+                    setUser(null);
+                    // Redirect to login if user is not authenticated
+                    navigate("/login");
+                    return;
+                } else if (!res.ok) {
+                    // Log only unexpected errors
+                    console.error(`Unexpected error: ${res.status}`);
+                    setUser(null);
+                    navigate("/login");
+                    return;
+                } else {
+                    const data = await res.json();
+                    // Extract the user object from the nested response
+                    const userData = data.user;
+                    setUser(userData);
+                }
+            } catch (error) {
+                console.error("Error details:", error.message);
+                setUser(null);
+                navigate("/login");
+            } finally {
+                setIsAuthChecked(true); // Mark auth check as complete
+            }
+        };
+        fetchUser();
+    }, [navigate]);
 
     useEffect(() => {
         const fetchProductAndQuantity = async () => {
@@ -63,9 +104,11 @@ const Product = () => {
                 setIsLoading(false);
             }
         };
-
-        if (id) fetchProductAndQuantity();
-    }, [id]);
+        // Only fetch product data if user is authenticated and auth check is complete
+        if (id && user && isAuthChecked) {
+            fetchProductAndQuantity();
+        }
+    }, [id, user, isAuthChecked, navigate]);
 
     // Preventing race conditions and handle errors properly
     const updateCart = async (newQuantity) => {
@@ -127,6 +170,9 @@ const Product = () => {
 
     if (isLoading) return <Loader />;
     if (!productDetails) return <NoProducts />;
+
+    // If user is null after auth check, component will redirect, so return null
+    if (!user) return null;
 
     return (
         <div className="px-4 py-8 lg:py-16 ">
