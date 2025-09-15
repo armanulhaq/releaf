@@ -16,7 +16,7 @@ async function getCart(req, res) {
 
 // Add or update cart item
 async function updateCart(req, res) {
-    const { product, quantity } = req.body;
+    const { product, quantity } = req.body; //extract productID, and quantity sent by client
     const user = getUser(req.cookies.token);
 
     try {

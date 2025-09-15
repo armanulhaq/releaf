@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
@@ -12,9 +11,9 @@ import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 import MyOrders from "./pages/MyOrders";
-
+import "./App.css";
 function App() {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]); //raised the product state at topmost so that everyone can access and edit it
 
     return (
         <div>

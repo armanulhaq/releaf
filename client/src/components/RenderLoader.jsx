@@ -8,9 +8,8 @@ const RenderLoader = () => {
                 </div>
             </div>
             <p className="text-[#4d382d] font-semibold text-center max-w-md">
-                Our backend server is waking up from sleep mode (hosted on
-                Render). This can take up to 30–40 seconds if it hasn't been
-                used recently.
+                Sometimes our backend server takes up to 30–40 seconds to wake
+                up if it hasn't been used recently.
             </p>
         </div>
     );

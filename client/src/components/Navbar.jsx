@@ -6,6 +6,7 @@ const Navbar = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+    console.log("User", user);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -38,18 +39,25 @@ const Navbar = () => {
         );
         if (res.ok) {
             setUser(null);
-            navigate(0);
+            navigate(0); //refresh
         }
     };
 
     return (
-        <div className="lg:py-6 py-4 flex justify-between px-7 md:px-12 lg:px-24">
+        <div className="lg:py-6 py-4 flex justify-between px-7 md:px-12 lg:px-24 border-b border-gray-100">
             <div className="flex cursor-pointer">
                 <div
-                    className="text-2xl font-bold cursor-pointer flex items-center gap-2"
+                    className="text-2xl font-bold cursor-pointer flex items-center gap-3"
                     onClick={() => navigate("/")}
                 >
-                    ReLeaf
+                    <div>
+                        <img
+                            src="/icon.png"
+                            alt="Releaf Icon"
+                            className="h-8 w-8"
+                        />
+                    </div>
+                    <div>Releaf</div>
                 </div>
             </div>
             <div className="flex justify-center items-center lg:gap-10 gap-5">

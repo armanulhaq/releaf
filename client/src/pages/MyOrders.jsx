@@ -87,7 +87,7 @@ const MyOrders = () => {
 
     if (!user.orders || user.orders.length === 0) {
         return (
-            <div className="min-h-[85vh]">
+            <div className="min-h-[85vh] flex justify-center items-center">
                 <div className="container mx-auto px-4 py-8">
                     <div className="max-w-4xl mx-auto">
                         <div className="p-8 text-center">
@@ -125,7 +125,7 @@ const MyOrders = () => {
                         {user.orders
                             .slice()
                             .reverse()
-                            .map((order, orderIndex) => (
+                            .map((order) => (
                                 <div
                                     key={order._id}
                                     className="rounded-lg border border-gray-200 shadow-sm overflow-hidden"

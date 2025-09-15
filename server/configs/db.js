@@ -5,10 +5,6 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        if (mongoose.connections[0].readyState) {
-            return;
-        }
-
         await mongoose.connect(process.env.ATLAS_URL);
         console.log("MongoDB connected");
     } catch (err) {

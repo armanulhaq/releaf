@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema(
             trim: true,
             maxlength: 100,
         },
+        //cart will be an array of objects that has product ID that refrences to Product Model and quantity
         cart: [
             {
                 product: {
@@ -27,6 +28,7 @@ const userSchema = new mongoose.Schema(
                 quantity: Number,
             },
         ],
+        //orders will be an array of objects that contains array of all the products, the total amount, paymentID, createdID
         orders: [
             {
                 products: [

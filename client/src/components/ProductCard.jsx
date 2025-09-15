@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
             <div
                 key={product.id}
                 onClick={() => navigate(`/product/${product._id}`)}
-                className="flex flex-col justify-between shadow-sm p-6 rounded-xl gap-1 cursor-pointer"
+                className="flex flex-col justify-between shadow-md hover:scale-105 transition-all duration-300 ease-in-out border border-gray-200 p-6 rounded-xl gap-1 cursor-pointer bg-[#fefaea]"
             >
                 <img
                     src={product.images[0]}
@@ -30,9 +30,9 @@ const ProductCard = ({ product }) => {
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="text-lg flex items-center gap-2 font-bold">
-                        ₹ {product.discountPrice}
+                        ₹{product.discountPrice}
                         <span className="text-sm line-clamp-1 text-gray-500/90 line-through">
-                            ₹ {product.originalPrice}
+                            ₹{product.originalPrice}
                         </span>
                     </div>
                     <div className="text-xs flex items-center gap-2 line-clamp-1 text-[#432507]">

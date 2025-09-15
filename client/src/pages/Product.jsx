@@ -45,7 +45,6 @@ const Product = () => {
 
                 const productData = await res.json();
                 setProductDetails(productData);
-
                 const qtyRes = await fetch(
                     `${import.meta.env.VITE_API_BASE_URL}/api/cart/${
                         productData._id
@@ -84,16 +83,24 @@ const Product = () => {
     };
 
     const renderStars = (rating) => {
-        return Array.from({ length: 5 }, (_, i) => (
-            <Star
-                key={i}
-                className={`w-5 h-5 ${
-                    i < Math.floor(rating)
-                        ? "fill-yellow-400 text-yellow-400"
-                        : "fill-yellow-100 text-yellow-200"
-                }`}
-            />
-        ));
+        const stars = [];
+
+        for (let i = 0; i < 5; i++) {
+            const isFilled = i < Math.ceil(rating);
+
+            stars.push(
+                <Star
+                    key={i}
+                    className={`w-5 h-5 ${
+                        isFilled
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "fill-yellow-100 text-yellow-200"
+                    }`}
+                />
+            );
+        }
+
+        return stars;
     };
 
     if (isLoading) return <Loader />;
@@ -112,9 +119,8 @@ const Product = () => {
                     </div>
                 </div>
 
-                {/* Product Details Section */}
                 <div className="flex flex-col justify-center space-y-4 xl:px-16">
-                    <div className="space-y-1">
+                    <div className="space-y-1 lg:space-y-2">
                         <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold">
                             {productDetails.name}
                         </h1>
@@ -132,7 +138,7 @@ const Product = () => {
                         </span>
                     </div>
 
-                    <div className="text-sm md:text-md my-4 text-gray-500/90">
+                    <div className="text-sm md:text-md my-2 text-gray-500/90">
                         {productDetails.longDescription}
                     </div>
 
@@ -155,7 +161,6 @@ const Product = () => {
                         </div>
                     </div>
 
-                    {/* Price & Discount */}
                     <div className="flex gap-3 items-center">
                         <span className="text-4xl font-bold">
                             ₹ {productDetails.discountPrice}
@@ -172,7 +177,6 @@ const Product = () => {
                         </span>
                     </div>
 
-                    {/* Quantity Controls */}
                     <div className="flex gap-3 items-center lg:w-[70%]">
                         <button className="flex gap-2 px-2 py-1 lg:py-2 bg-gray-200 w-[40%] justify-between items-center rounded-sm">
                             <div
@@ -180,7 +184,7 @@ const Product = () => {
                                     const newQuantity = Math.max(
                                         0,
                                         quantity - 1
-                                    );
+                                    ); //prevents subzero values
                                     updateCart(newQuantity);
                                 }}
                                 className="w-10 h-10 flex items-center justify-center cursor-pointer"
@@ -211,8 +215,7 @@ const Product = () => {
                         </button>
                     </div>
 
-                    {/* Additional Info */}
-                    <div className="my-4 space-y-4 pt-6 rounded-xl">
+                    <div className="my-2 space-y-4 pt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-1">
                                 <p className="text-sm font-bold">Material</p>

@@ -1,16 +1,16 @@
 import { getUser, setUser } from "../middleware/auth.js";
 import User from "../models/user.model.js";
-import connectDB from "../configs/db.js";
 
 const register = async (req, res) => {
-    await connectDB();
     try {
         const { name, email, password } = req.body;
 
         const doesExist = await User.findOne({ email });
+
         if (doesExist) {
             return res.status(409).json({ message: "User already exists" });
         }
+
         User.create({
             name: name,
             email: email,
@@ -27,7 +27,6 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    await connectDB();
     const { email, password } = req.body;
 
     const user = await User.findOne({ email, password });
@@ -48,7 +47,6 @@ const login = async (req, res) => {
 };
 
 const authMe = async (req, res) => {
-    await connectDB();
     const token = req.cookies.token;
     if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
@@ -66,8 +64,9 @@ const authMe = async (req, res) => {
 };
 
 const logout = (req, res) => {
+    //clear cookie
     res.cookie("token", "", {
-        maxAge: 0,
+        maxAge: 0, //destroy cookie
         httpOnly: true,
         sameSite: "None",
         secure: true,

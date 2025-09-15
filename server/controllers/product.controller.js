@@ -1,8 +1,6 @@
 import Product from "../models/products.model.js";
-import connectDB from "../configs/db.js";
 
 const fetchProducts = async (req, res) => {
-    await connectDB();
     try {
         const products = await Product.find();
         res.status(200).json(products);
@@ -13,7 +11,6 @@ const fetchProducts = async (req, res) => {
 };
 
 const fetchProduct = async (req, res) => {
-    await connectDB();
     const { id } = req.params; //id comes from the URL from where the request is made
 
     try {

@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import NoProducts from "../components/NoProducts";
 const AllProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
-    const [fetchError, setFetchError] = useState(null);
+
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`)
             .then((res) => {
@@ -14,20 +14,17 @@ const AllProducts = () => {
             })
             .then((data) => {
                 setAllProducts(data);
-                setFetchError(null);
             })
-            .catch((err) => {
-                setFetchError(
-                    "Could not connect to server. Please try again later.",
-                    err
-                );
+            .catch(() => {
                 setAllProducts([]);
             });
-    }, [fetchError]);
+    }, []);
+
     if (!allProducts.length) return <Loader />;
     if (allProducts.length === 0) return <NoProducts />;
+
     return (
-        <div className="">
+        <div className="mb-10">
             <div className="text-2xl font-bold mb-6">All Products</div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
                 {allProducts.map((product) => {

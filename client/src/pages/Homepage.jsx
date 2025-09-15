@@ -9,7 +9,7 @@ import Categories from "../components/Categories";
 
 const Homepage = ({ products, setProducts }) => {
     const [count, setCount] = useState(2); //i wanted the third product to be displayed first
-    const [fade, setFade] = useState(true);
+    const [fade, setFade] = useState(true); //fade means fully visible
     const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
@@ -72,6 +72,7 @@ const Homepage = ({ products, setProducts }) => {
     }
 
     if (products.length === 0) return <NoProducts />;
+
     return (
         <div className="w-full relative">
             <div className="flex md:flex-row flex-col gap-5 md:gap-0 items-center rounded-lg lg:p-8">
@@ -126,7 +127,7 @@ const Homepage = ({ products, setProducts }) => {
                 <div className="my-7 flex justify-center">
                     <button
                         onClick={() => navigate("/all-products")}
-                        className="border-1 border-[#432507] text-[#432507] w-fit px-5 py-2 rounded-sm hover:bg-[#432507] hover:text-white transition-all duration-300 cursor-pointer"
+                        className="border-1 border-[#432507] text-[#432507] w-fit px-5 py-2 rounded-sm hover:bg-[#432507] hover:text-white transition-all duration-100 cursor-pointer"
                     >
                         View All
                     </button>

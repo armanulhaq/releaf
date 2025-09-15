@@ -5,6 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 
 async function paymentHandler(req, res) {
     const { product, success_url, cancel_url, metadata } = req.body;
+
     const line_items = product.map((item) => ({
         price_data: {
             currency: "INR",
@@ -16,6 +17,7 @@ async function paymentHandler(req, res) {
         },
         quantity: item.quantity,
     }));
+
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
